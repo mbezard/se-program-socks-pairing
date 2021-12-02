@@ -1,4 +1,4 @@
-export default function Sock({
+export default function SockComponent({
                                  color = "#f55648",
                                  lineAmount = 3,
                                  size,
