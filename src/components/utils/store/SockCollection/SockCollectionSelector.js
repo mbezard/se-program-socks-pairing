@@ -1,1 +1,1 @@
-export const sockCollectionSelector = (socks) => socks;
+export const sockCollectionSelector = ({sockCollection}) => sockCollection;

@@ -13,19 +13,25 @@ export default function SocksPairing() {
     // dispatch(addSock(new Sock()))
     useEffect(() => {
         const s = new Sock()
-        dispatch({type: ADD_SOCK_TO_COLLECTION, payload: s})
+        // dispatch({type: ADD_SOCK_TO_COLLECTION, payload: s})
     }, [])
+
+    const s1 = new Sock()
+    const s2 = new Sock()
+    const s3 = new Sock({color:"blue"})
+    const s4 = new Sock({color:"blue"})
+    const s5 = new Sock()
+    console.log(s1.isSameAs(s2))
+    console.log(s1.isSameAs(s3))
+    console.log(s4.isSameAs(s3))
+    console.log(Sock.orderCollection([s1, s3, s2, s4, s5]))
+
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
         <div className={"m-auto shadow flex flex-col content-center p-5"}>
             <div>
                 <div>Choose socks pool</div>
                 <div>
-                    <SockComponent patternColor={"red"} color={"blue"} pattern={"None"} lineAmount={0} height={150}
-                                   width={150}/>
-                    <SockComponent patternColor={"red"} color={"blue"} pattern={"None"} lineAmount={1} height={150}
-                                   width={150}/>
-                    <SockComponent patternColor={"red"} color={"blue"} pattern={"None"} lineAmount={2}/>
-                    <SockComponent/>
+                    {socks.map((s, i) => s.getComponent({}, i))}
                 </div>
             </div>
             <div>Choose Algorithm</div>
