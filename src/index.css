@@ -6,4 +6,9 @@
     .button-primay {
         @apply bg-primary text-white rounded px-4 py-3 text-center
     }
+
+    .shadow-unselected {
+        box-shadow:  inset 0.2rem 0.2rem 0.5rem gray, inset -0.2rem -0.2rem 0.5rem white;
+    }
+
 }

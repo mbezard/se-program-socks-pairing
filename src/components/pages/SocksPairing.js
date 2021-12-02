@@ -18,20 +18,37 @@ export default function SocksPairing() {
 
     const s1 = new Sock()
     const s2 = new Sock()
-    const s3 = new Sock({color:"blue"})
-    const s4 = new Sock({color:"blue"})
+    const s3 = new Sock({color: "blue"})
+    const s4 = new Sock({color: "blue"})
     const s5 = new Sock()
-    console.log(s1.isSameAs(s2))
-    console.log(s1.isSameAs(s3))
-    console.log(s4.isSameAs(s3))
-    console.log(Sock.orderCollection([s1, s3, s2, s4, s5]))
+    // console.log(s1.isSameAs(s2))
+    // console.log(s1.isSameAs(s3))
+    // console.log(s4.isSameAs(s3))
+    // console.log(Sock.orderCollection([s1, s3, s2, s4, s5]))
+
+    // socks.push(s1, s3, s2, s4, s5)
+    // console.log(Sock.orderCollection(socks))
 
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
         <div className={"m-auto shadow flex flex-col content-center p-5"}>
             <div>
                 <div>Choose socks pool</div>
-                <div>
-                    {socks.map((s, i) => s.getComponent({}, i))}
+                <div className={"flex flex-col border-2 border-grey rounded shadow-unselected"}>
+                    {Sock.orderCollection([s1, s3, s2, s4, s5]).map((pair, i) => {
+                        console.log(i, pair)
+                        return (
+                            <div key={i} className={"inline-flex my-1"}>
+                                <div>
+                                    {pair[0] && pair[0].getComponent({height:75, width:75})}
+                                </div>
+                                {pair[1] &&
+                                <div style={{marginLeft:"-40px"}}>
+                                    {pair[1].getComponent({height:75, width:75})}
+                                </div>}
+
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
             <div>Choose Algorithm</div>
