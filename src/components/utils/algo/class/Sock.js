@@ -61,4 +61,13 @@ class Sock {
 
 }
 
+export const paramDict = {
+    color: ["black", "blue", "red"],
+    lineAmount: [1, 2, 3],
+    pattern: ["dots"],
+    patternColor: ["black", "blue", "red", "orange"],
+
+}
+
+
 export default Sock;
