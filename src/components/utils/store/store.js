@@ -10,10 +10,15 @@ const store = createStore(combineReducers({
 )
 
 if (localStorage.sockCollection) {
+    // console.log("loading socks from local storage")
     const collectionAsJson = JSON.parse(localStorage.sockCollection)
-    const collection = collectionAsJson.map(sock => new Sock(sock))
+    const collection = collectionAsJson.map(sock => {
+        // console.log(sock, new Sock({...sock?.param, ...sock?.dimension}))
+        return new Sock({...sock?.param, ...sock?.dimension})
+    })
     store.dispatch(setSockCollection(collection))
 } else {//to be removed
+    // console.log("populate socks")
     const s1 = new Sock()
     const s2 = new Sock()
     const s3 = new Sock({color: "blue"})
