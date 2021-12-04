@@ -16,7 +16,7 @@ export default function SocksPairing() {
                 <div>Choose socks pool</div>
                 <SockCollectionComponent socks={socks} />
             </div>
-            <Link to={"/socks-collection-edit"}><button className={"button-primay"}>Click to edit</button></Link>
+            <Link to={"/socks-collection-edit"}><button className={"button-primary"}>Click to edit</button></Link>
             <div>Choose Algorithm</div>
         </div>
     </div>

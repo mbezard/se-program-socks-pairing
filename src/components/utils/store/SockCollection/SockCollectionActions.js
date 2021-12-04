@@ -7,5 +7,5 @@ export const setSockCollection = (collection) =>  {
 }
 
 export const addSock = (sock) =>  {
-    return dispatch => dispatch({type:ADD_SOCK_TO_COLLECTION, payload:sock})
+    return {type:ADD_SOCK_TO_COLLECTION, payload:sock}
 }

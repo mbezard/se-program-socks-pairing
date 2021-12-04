@@ -26,6 +26,7 @@ class Sock {
             pattern: pattern,
             patternColor: patternColor,
         }
+        if (pattern === "None") this.param.patternColor = "black"
         this.dimensions = {
             height: height,
             width: width,
@@ -63,8 +64,8 @@ class Sock {
 
 export const paramDict = {
     color: ["black", "blue", "red"],
-    lineAmount: [1, 2, 3],
-    pattern: ["dots"],
+    lineAmount: [0, 1, 2, 3],
+    pattern: ["dots", "None"],
     patternColor: ["black", "blue", "red", "orange"],
 
 }
