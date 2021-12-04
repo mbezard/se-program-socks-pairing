@@ -30,7 +30,7 @@ export default function SockCollectionComponent({
                                 {pair[0] && pair[0].getComponent({height: height, width: width})}
                             </div>
                             {editable &&
-                            <div className={"absolute top-1/3 left-1/4 hover:scale-110"} onClick={onDeleteClick}>
+                            <div className={"absolute top-1/3 left-1/4 hover:scale-110"} onClick={() => onDeleteClick(pair[0])}>
                                 <DelIcon/>
                             </div>
                             }
@@ -41,7 +41,7 @@ export default function SockCollectionComponent({
                                 {pair[1].getComponent({height: height, width: width})}
                             </div>
                             {editable &&
-                            <div className={"absolute top-1/3 left-1/4"} onClick={onDeleteClick}>
+                            <div className={"absolute top-1/3 left-1/4"} onClick={() => onDeleteClick(pair[1])}>
                                 <DelIcon/>
                             </div>
                             }

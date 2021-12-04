@@ -25,6 +25,19 @@ export default function SocksEditPage() {
         // setNewSock(new Sock())
     }
 
+    const handleRemoveFromCollection = (sock) => {
+        const newSocksCol = []
+        let isRemoved = false
+        for(let s of socks) {
+            if(!isRemoved && s.isSameAs(sock)) {
+                isRemoved = true
+            } else {
+                newSocksCol.push(s)
+            }
+        }
+        dispatch(setSockCollection(newSocksCol))
+    }
+
     return <>
         <div className={"h-screen flex content-center bg-greyLight-1"}>
             <div className={"m-auto shadow flex flex-col content-center p-5"}>
@@ -32,7 +45,7 @@ export default function SocksEditPage() {
                 <div className={"text-center m-2 text-xl font-bold"}>Edit Page</div>
                 <div className={"flex flex-inline"}>
                     <div className={"mx-4"}>
-                        <SockCollectionComponent socks={socks} editable={true} />
+                        <SockCollectionComponent socks={socks} editable={true} onDeleteClick={handleRemoveFromCollection}/>
 
                     </div>
                     <div className={"mx-4 h-3/4 bg-black w-1"}/>
