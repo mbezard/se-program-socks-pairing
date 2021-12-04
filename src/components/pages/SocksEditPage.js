@@ -32,7 +32,7 @@ export default function SocksEditPage() {
                 <div className={"text-center m-2 text-xl font-bold"}>Edit Page</div>
                 <div className={"flex flex-inline"}>
                     <div className={"mx-4"}>
-                        <SockCollectionComponent socks={socks}/>
+                        <SockCollectionComponent socks={socks} editable={true} />
 
                     </div>
                     <div className={"mx-4 h-3/4 bg-black w-1"}/>
