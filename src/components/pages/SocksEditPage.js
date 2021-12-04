@@ -4,13 +4,12 @@ import Sock, {paramDict} from "../utils/algo/class/Sock";
 import {useDispatch, useSelector} from "react-redux";
 import {sockCollectionSelector} from "../utils/store/SockCollection/SockCollectionSelector";
 import {toStandardCase} from "../utils/utilsFunctions";
-import {addSock, setSockCollection} from "../utils/store/SockCollection/SockCollectionActions";
+import {setSockCollection} from "../utils/store/SockCollection/SockCollectionActions";
 
 export default function SocksEditPage() {
     const [newSock, setNewSock] = useState(new Sock())
     const dispatch = useDispatch()
     const socks = useSelector(sockCollectionSelector)
-    // console.log("updaete")
     const handleButtonClick = (param, value) => {
         // console.log("edit", param, value)
         setNewSock(prevState => {
@@ -21,8 +20,7 @@ export default function SocksEditPage() {
     }
 
     const handleAddToCollection = () => {
-        dispatch(setSockCollection([...socks, newSock]))
-        // setNewSock(new Sock())
+        dispatch(setSockCollection([...socks, new Sock({...newSock.param})]))
     }
 
     const handleRemoveFromCollection = (sock) => {
@@ -73,6 +71,7 @@ export default function SocksEditPage() {
                             }
                         </div>
 
+                        <hr className={"my-2"}/>
                         <div className={"flex justify-evenly"}>
                             <div>
                                 {newSock.getComponent()}
