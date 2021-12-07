@@ -8,12 +8,19 @@ import Robot2 from "../../ressources/robot-2.png"
 import Robot3 from "../../ressources/robot-3.png"
 import defaultSockCollections from "../utils/defaultSockCollections";
 import ModalWiseBot from "../components/ModalWiseBot";
+import {getProgress} from "../utils/Progress";
+import {getText} from "../utils/tutorialStory";
 
-export default function SocksPairing() {
+export default function SocksPairing({withProgress = false}) {
     const socks = useSelector(sockCollectionSelector)
     const robotsImgs = [Robot1, Robot2, Robot3]
     let [robotSelected, setRobotSelected] = useState(-1)
     let [collectionSelected, setCollectionSelected] = useState(-2)
+    let [progress, setProgress] = useState(withProgress)
+
+    if (withProgress) {
+        progress = getProgress()//todo make the modal reopen if tuto is not over
+    }
 
 
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
@@ -24,8 +31,8 @@ export default function SocksPairing() {
                     <div className={"inline-flex"}>
                         {defaultSockCollections.map((col, i) => (
                             <div onClick={() => setCollectionSelected(i)}>
-                            <SockCollectionComponent socks={col.socks} title={col.title}
-                                                     isSelected={collectionSelected === i}/>
+                                <SockCollectionComponent socks={col.socks} title={col.title}
+                                                         isSelected={collectionSelected === i}/>
                             </div>
                         ))}
                         <div onClick={() => setCollectionSelected(-1)}>
@@ -60,12 +67,10 @@ export default function SocksPairing() {
                 </div>
             </div>
         </div>
-        <ModalWiseBot isShownByDefault={true}>
-            Hi! My name is WiseBot
-            <br/>
-            Bip! Boop!
-            <br/>
-            This is a very long sentence woah this is really really long
+        {withProgress &&
+        <ModalWiseBot isShownByDefault={withProgress} onExit={() => setProgress(progress+1)}>
+            {getText(progress)}
         </ModalWiseBot>
+        }
     </div>
 }

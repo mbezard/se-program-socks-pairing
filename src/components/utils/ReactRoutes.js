@@ -10,6 +10,7 @@ export default function ReactRoutes() {
             <Routes>
                 <Route path={"/"} element={<MainPage/>} />
                 <Route path={"/socks-pairing"} element={<SocksPairing/>} />
+                <Route path={"/socks-pairing-with-tutorial"} element={<SocksPairing withProgress={true}/>} />
                 <Route path={"/socks-collection-edit"} element={<SocksEditPage />} />
             </Routes>
 

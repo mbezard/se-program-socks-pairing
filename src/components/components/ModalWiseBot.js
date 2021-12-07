@@ -1,8 +1,18 @@
 import {useState} from "react";
 import WiseBotIcon from "../../ressources/WisebotIcon";
 
-export default function ModalWiseBot({isShownByDefault = false, ...props}) {
+export default function ModalWiseBot({
+                                         isShownByDefault = false,
+                                         onExit = () => {
+                                         },
+                                         ...props
+                                     }) {
+
     const [isShown, setIsShown] = useState(isShownByDefault)
+    const onClose = () => {
+        setIsShown(false)
+        onExit()
+    }
 
     return (<div>
         {isShown && <div className={"overflow-hidden fixed max-h-full max-w-full z-40 inset-0"}>
@@ -24,8 +34,7 @@ export default function ModalWiseBot({isShownByDefault = false, ...props}) {
             </div>
 
 
-
-            <div onClick={() => setIsShown(false)} className="opacity-25 fixed inset-0 z-40 bg-black"/>
+            <div onClick={onClose} className="opacity-25 fixed inset-0 z-40 bg-black"/>
 
         </div>}
     </div>)
