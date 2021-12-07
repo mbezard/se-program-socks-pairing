@@ -8,7 +8,15 @@
     }
 
     .shadow-unselected {
-        box-shadow:  inset 0.2rem 0.2rem 0.5rem gray, inset -0.2rem -0.2rem 0.5rem white;
+        box-shadow:  inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem white;
+    }
+
+    .shadow-selected {
+       box-shadow: rgb(200 208 231) 0.8rem 0.8rem 0.8rem, white -0.4rem -0.4rem 0.9rem;
+    }
+
+    .title {
+        @apply uppercase m-5 font-bold
     }
 
 }

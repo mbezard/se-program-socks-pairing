@@ -5,8 +5,11 @@ export default function SockCollectionComponent({
                                                     socks,
                                                     height = 75,
                                                     width = 75,
+                                                    title = false,
+                                                    isSelected = false,
                                                     editable = false,
-                                                    onDeleteClick = () => {}
+                                                    onDeleteClick = () => {
+                                                    }
                                                 }) {
     // console.log(editable && "editable ")
 
@@ -19,8 +22,11 @@ export default function SockCollectionComponent({
         </svg>
     )
 
-    return (
-        <div className={"flex flex-col border-2 border-grey rounded shadow-unselected"}>
+    return (<div className={"flex-col mx-1"}>
+        {title ? <div className={"text-center"}>{title}</div> : <div className={"h-6"}/>}
+        <div
+            className={"flex flex-col border-2 border-grey rounded " + (isSelected ? "shadow-selected" : "shadow-unselected")}
+            style={{width: (width * 1.5)}}>
             {Sock.orderCollection(socks).map((pair, i) => {
                 // console.log(i, pair)
                 return (
@@ -30,13 +36,15 @@ export default function SockCollectionComponent({
                                 {pair[0] && pair[0].getComponent({height: height, width: width})}
                             </div>
                             {editable &&
-                            <div className={"absolute top-1/3 left-1/4 hover:scale-110"} onClick={() => onDeleteClick(pair[0])}>
+                            <div className={"absolute top-1/3 left-1/4 hover:scale-110"}
+                                 onClick={() => onDeleteClick(pair[0])}>
                                 <DelIcon/>
                             </div>
                             }
                         </div>
                         {pair[1] &&
-                        <div className={"relative"} style={{marginLeft: "-40px"}}>
+                        <div className={"relative"}
+                             style={{marginLeft: "-" + (width / 2) + "px", marginRight: "-" + (width / 2) + "px"}}>
                             <div>
                                 {pair[1].getComponent({height: height, width: width})}
                             </div>
@@ -52,5 +60,5 @@ export default function SockCollectionComponent({
                 )
             })}
         </div>
-    )
+    </div>)
 }
