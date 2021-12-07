@@ -7,6 +7,7 @@ import Robot1 from "../../ressources/robot-1.png"
 import Robot2 from "../../ressources/robot-2.png"
 import Robot3 from "../../ressources/robot-3.png"
 import defaultSockCollections from "../utils/defaultSockCollections";
+import ModalWiseBot from "../components/ModalWiseBot";
 
 export default function SocksPairing() {
     const socks = useSelector(sockCollectionSelector)
@@ -40,7 +41,7 @@ export default function SocksPairing() {
                 </div>
             </div>
 
-            <div className={"h-full mx-2"}/>
+            <div className={"h-full mx-5"}/>
 
             <div>
                 <div className={"flex-col"}>
@@ -59,5 +60,12 @@ export default function SocksPairing() {
                 </div>
             </div>
         </div>
+        <ModalWiseBot isShownByDefault={true}>
+            Hi! My name is WiseBot
+            <br/>
+            Bip! Boop!
+            <br/>
+            This is a very long sentence woah this is really really long
+        </ModalWiseBot>
     </div>
 }
