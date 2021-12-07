@@ -9,9 +9,12 @@ const story = [
         Welcome to the Tutorial
     </>,
     <>
-        Next step
-    </>
+        <span>Next step!</span>
+    </>,
+    null
 ]
+
+
 
 export function getText(progress) {
     if(!progress) progress = 0

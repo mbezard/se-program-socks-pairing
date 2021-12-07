@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import WiseBotIcon from "../../ressources/WisebotIcon";
 
 export default function ModalWiseBot({
@@ -9,10 +9,16 @@ export default function ModalWiseBot({
                                      }) {
 
     const [isShown, setIsShown] = useState(isShownByDefault)
+    useEffect(() => {
+        setIsShown(isShownByDefault)
+    }, [isShownByDefault, props])
+
     const onClose = () => {
+        console.log("onclose")
         setIsShown(false)
         onExit()
     }
+
 
     return (<div>
         {isShown && <div className={"overflow-hidden fixed max-h-full max-w-full z-40 inset-0"}>

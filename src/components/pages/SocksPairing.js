@@ -16,12 +16,10 @@ export default function SocksPairing({withProgress = false}) {
     const robotsImgs = [Robot1, Robot2, Robot3]
     let [robotSelected, setRobotSelected] = useState(-1)
     let [collectionSelected, setCollectionSelected] = useState(-2)
-    let [progress, setProgress] = useState(withProgress)
+    let [progress, setProgress] = useState(getProgress())
 
-    if (withProgress) {
-        progress = getProgress()//todo make the modal reopen if tuto is not over
-    }
 
+    const tutorialText = getText(progress)
 
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
         <div className={"m-auto shadow inline-flex content-center p-5"}>
@@ -30,7 +28,7 @@ export default function SocksPairing({withProgress = false}) {
                     <div className={"title"}>Select collection</div>
                     <div className={"inline-flex"}>
                         {defaultSockCollections.map((col, i) => (
-                            <div onClick={() => setCollectionSelected(i)}>
+                            <div key={i} onClick={() => setCollectionSelected(i)}>
                                 <SockCollectionComponent socks={col.socks} title={col.title}
                                                          isSelected={collectionSelected === i}/>
                             </div>
@@ -68,8 +66,8 @@ export default function SocksPairing({withProgress = false}) {
             </div>
         </div>
         {withProgress &&
-        <ModalWiseBot isShownByDefault={withProgress} onExit={() => setProgress(progress+1)}>
-            {getText(progress)}
+        <ModalWiseBot isShownByDefault={tutorialText && true} onExit={() => setProgress(prev => prev + 1)}>
+            {tutorialText}
         </ModalWiseBot>
         }
     </div>

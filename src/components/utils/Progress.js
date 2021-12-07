@@ -1,4 +1,4 @@
-export function getProgress() {
+export function getProgress() {//todo use a reducer
     return localStorage.getItem("progress") || 0
 }
 

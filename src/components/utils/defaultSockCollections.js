@@ -10,5 +10,6 @@ export const simpleCollection = {
     ]
 }
 
+const defaultSockCollections = [simpleCollection]
 
-export default [simpleCollection]
+export default defaultSockCollections
