@@ -1,4 +1,4 @@
-class ExecAction {
+export default class ExecAction {
     /*
     sock movement or box creation (with sock movement)
      */
@@ -10,7 +10,7 @@ class ExecAction {
         this.toCoordinates = toCoordinates
     }
 
-    category = 0 //1:movement, 2:box creation, 3:look at
+    category = 0 //1:movement, 2:box creation, 3:look at, 4:move box
     socksConcerned = []
     fromCoordinates = [0, 0]
     toCoordinates = [0, 0]
