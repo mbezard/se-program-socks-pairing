@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {sockCollectionSelector} from "../utils/store/SockCollection/SockCollectionSelector";
 import {Link, useNavigate} from "react-router-dom";
@@ -10,15 +10,20 @@ import defaultSockCollections from "../utils/defaultSockCollections";
 import ModalWiseBot from "../components/ModalWiseBot";
 import {getProgress} from "../utils/Progress";
 import {getText} from "../utils/tutorialStory";
+import {setSelectedCollection} from "../utils/collectionSelection";
 
 export default function SocksPairing({withProgress = false}) {
     const socks = useSelector(sockCollectionSelector)
     const robotsImgs = [Robot1, Robot2, Robot3]
     let [robotSelected, setRobotSelected] = useState(-1)
-    let [collectionSelected, setCollectionSelected] = useState(-2)
+    let [collectionSelectedIndex, setCollectionSelectedIndex] = useState(-2)
     let [progress, setProgress] = useState(getProgress())
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if(collectionSelectedIndex === -1) setSelectedCollection(socks)
+        if(collectionSelectedIndex >= 0) setSelectedCollection(defaultSockCollections[collectionSelectedIndex].socks)
+    }, [collectionSelectedIndex])
 
     const tutorialText = getText(progress)
 
@@ -30,14 +35,14 @@ export default function SocksPairing({withProgress = false}) {
                         <div className={"title"}>Select collection</div>
                         <div className={"inline-flex"}>
                             {defaultSockCollections.map((col, i) => (
-                                <div key={i} onClick={() => setCollectionSelected(i)}>
+                                <div key={i} onClick={() => setCollectionSelectedIndex(i)}>
                                     <SockCollectionComponent socks={col.socks} title={col.title}
-                                                             isSelected={collectionSelected === i}/>
+                                                             isSelected={collectionSelectedIndex === i}/>
                                 </div>
                             ))}
-                            <div onClick={() => setCollectionSelected(-1)}>
+                            <div onClick={() => setCollectionSelectedIndex(-1)}>
                                 <SockCollectionComponent socks={socks} title={"Custom"}
-                                                         isSelected={collectionSelected === -1}/>
+                                                         isSelected={collectionSelectedIndex === -1}/>
                                 <div className={"flex justify-center my-2"}>
                                     <Link to={"/socks-collection-edit"}>
                                         <button className={"button-primary"}>Click to edit</button>
@@ -71,7 +76,7 @@ export default function SocksPairing({withProgress = false}) {
             <hr className={"py-2"}/>
 
             <div className={"flex justify-center"}>
-                <button className={"button-primary"} disabled={robotSelected === -1 || collectionSelected === -2}
+                <button className={"button-primary"} disabled={robotSelected === -1 || collectionSelectedIndex === -2}
                         onClick={() => navigate(`/socks-pairing-algorithm/${robotSelected}`)}>Execute
                 </button>
 
