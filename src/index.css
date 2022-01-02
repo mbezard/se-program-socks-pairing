@@ -4,7 +4,7 @@
 
 @layer components {
     .button-primary {
-        @apply bg-primary text-white rounded px-4 py-3 text-center
+        @apply bg-primary text-white rounded px-4 py-3 text-center cursor-pointer
     }
 
     .shadow-unselected {
