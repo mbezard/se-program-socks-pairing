@@ -3,9 +3,9 @@ export default class ExecAction {
     sock movement or box creation (with sock movement)
      */
 
-    constructor(category, sockConcerned = undefined, fromCoordinates = [0, 0], toCoordinates = [0, 0]) {
+    constructor(category, sockConcerned = undefined, fromCoordinates = "initial box", toCoordinates = "final box") {
         this.category = category
-        if(sockConcerned) this.sockConcerned = sockConcerned
+        if (sockConcerned) this.sockConcerned = sockConcerned
         this.fromCoordinates = fromCoordinates
         this.toCoordinates = toCoordinates
     }
@@ -17,12 +17,40 @@ export default class ExecAction {
 
 
     getLogText = () => {
-        // console.log("logging :", this.sockConcerned)
-        return <p className={"flex flex-nowrap"}>
-            <span>Moved sock </span>
-            {this.sockConcerned.map((sock,i) => sock.getComponent({width: 30, height:25}, i))}
-            <span> from {this.fromCoordinates} to {this.toCoordinates}</span>
+        if (this.category === 3) {
+            return (
+                <p className={"flex flex-wrap whitespace-nowrap"}>
+                    <span>Sock compared with </span>
+                    <span className={"flex"}>
+                        {this.sockConcerned.map((sock, i) => sock.getComponent({width: 30, height: 25}, i))}
+                    </span>
+                    <span>
+                        in 
+                    </span>
+                    <span className={this.fromCoordinates === "initial box" ? "text-green-300" : "text-white"}>
+                        {this.fromCoordinates}
+                    </span>
+                </p>
+            )
+        }
 
+        return <p className={"flex flex-wrap whitespace-nowrap"}>
+            <span>Moved sock </span>
+            <span className={"flex"}>
+                {this.sockConcerned.map((sock, i) => sock.getComponent({width: 30, height: 25}, i))}
+            </span>
+            <span>
+                from 
+            </span>
+            <span className={this.fromCoordinates === "initial box" ? "text-green-300" : "text-white"}>
+                {this.fromCoordinates}
+            </span>
+            <span>
+                 to 
+            </span>
+            <span className={this.toCoordinates === "final box" ? "text-red-400" : "text-white"}>
+                {this.toCoordinates}
+            </span>
         </p>
     }
 

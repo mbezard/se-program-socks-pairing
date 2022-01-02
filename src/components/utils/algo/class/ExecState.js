@@ -41,7 +41,23 @@ export default class ExecState {
     getNumberOfColumns = () => Math.max(this.board.map(row => row.length))
 
     getHtml = () => {
-        //todo (or show func)
+        return (
+            <div className={"flex flex-col"}>
+                <div className={"w-full h-24"}>
+                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex"}>
+                        {this.board.initialCollection.map((sock, i) => sock.getComponent({height: 50, width: 50}, i))}
+                    </div>
+                </div>
+                <div>
+                    todo
+                </div>
+                <div className={"w-full h-24"}>
+                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex"}>
+                        {this.board.finalCollection.map((sock, i) => sock.getComponent({height: 50, width: 50}, i))}
+                    </div>
+                </div>
+            </div>
+        )
     }
 
 }
