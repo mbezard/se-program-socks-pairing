@@ -33,8 +33,8 @@ class Sock {
         }
     }
 
-    getComponent = (props = {}, key = 1, dim = this.dimensions) => {
-        return <SockComponent {...this.param} {...dim} {...props} key={key}/>
+    getComponent = (props = {}, key = 1) => {
+        return <SockComponent {...this.param} {...this.dimensions} {...props} key={key}/>
     }
 
     isSameAs = (sock) => {

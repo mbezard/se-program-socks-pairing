@@ -33,6 +33,7 @@ export default class SimpleAlgo extends Algo{
 
             for (let i=0; i<board.initialCollection.length;i++) {
                 let sock2 = board.initialCollection[i]
+                //todo add state
                 this.actions.push(new ExecAction(3, [sock2], [0,0], [0,0]))
                 if(sock2.isSameAs(sock)) {
                     board.initialCollection.splice(i, 1)
@@ -46,7 +47,7 @@ export default class SimpleAlgo extends Algo{
             board.finalCollection.push(board[0])
             board[0] = []
             this.states.push(new ExecState(board))
-            this.actions.push(new ExecAction(1, [board[0]], [1,0], [2,0]))
+            this.actions.push(new ExecAction(1, board.finalCollection[board.finalCollection.length - 1], [1,0], [2,0]))
         }
         console.log("at the end:",board)
     }

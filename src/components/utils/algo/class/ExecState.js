@@ -4,7 +4,7 @@ import Board from "./Board";
 export default class ExecState {
     constructor(board = null) {
         if (board != null) {
-            console.log("state receiving board", board)
+            // console.log("state receiving board", board)
 
             //copying initial collection
             this.board.initialCollection = JSON.parse(JSON.stringify(board.initialCollection)).map(sock =>
@@ -31,12 +31,12 @@ export default class ExecState {
                 }
             }
 
-            console.log("state computing board", this.board)
+            // console.log("state computing board", this.board)
         }
     }
 
     board = new Board()
-    
+
     getNumberOfRows = () => this.board.length
     getNumberOfColumns = () => Math.max(this.board.map(row => row.length))
 
