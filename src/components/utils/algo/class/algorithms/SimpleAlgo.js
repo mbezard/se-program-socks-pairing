@@ -27,7 +27,7 @@ export default class SimpleAlgo extends Algo{
         console.log("at start:",board)
         while (board.initialCollection.length !== 0) {
             const sock = board.initialCollection.pop()
-            board[0] = [sock]
+            board[0] = [[sock]]
             this.states.push(new ExecState(board))
             this.actions.push(new ExecAction(1, [sock], "initial box", [1,0]))
 
@@ -37,15 +37,15 @@ export default class SimpleAlgo extends Algo{
                 this.actions.push(new ExecAction(3, [sock2], "initial box", "initial box"))
                 if(sock2.isSameAs(sock)) {
                     board.initialCollection.splice(i, 1)
-                    board[0] = [sock, sock2]
+                    board[0][0] = [sock, sock2]
                     this.states.push(new ExecState(board))
                     this.actions.push(new ExecAction(4, [sock2], "initial box", [1,0]))
                     break;
                 }
             }
 
-            board.finalCollection.push(board[0])
-            board[0] = []
+            board.finalCollection.push(board[0][0])
+            board[0][0] = []
             this.states.push(new ExecState(board))
             this.actions.push(new ExecAction(1, board.finalCollection[board.finalCollection.length - 1], [1,0], "final box"))
         }
