@@ -40,13 +40,13 @@ export default function SockPairingAlgorithm() {
         }
     }, [isPlaying])
 
-    if (step >= states.length) {
+    if (states.length > 0 && step >= states.length) {
         clearInterval(playInterval)
         setStep(states.length - 1)
     }
 
-    // console.log("states: ", states)
-    // console.log("actions: ", actions)
+    console.log("states: ", states)
+    console.log("actions: ", actions)
 
     return (
         <div className={"h-screen flex content-center bg-greyLight-1"}>

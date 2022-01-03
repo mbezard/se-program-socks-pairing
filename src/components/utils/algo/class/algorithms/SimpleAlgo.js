@@ -21,6 +21,7 @@ export default class SimpleAlgo extends Algo{
         this.actions = []
 
         let board = new Board([], socks)
+        board.initialCollection.sort((a, b) => 0.5 - Math.random());//shuffle
         const state = new ExecState(board)
         this.states.push(state)
 
