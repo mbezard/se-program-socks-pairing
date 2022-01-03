@@ -13,6 +13,6 @@ export default class Board extends Array{
         }
     }
 
-    initialCollection = []
-    finalCollection = []
+    initialCollection = [] //list of socks
+    finalCollection = [] //list of pairs
 }

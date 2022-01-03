@@ -50,6 +50,7 @@ export default class SimpleAlgo extends Algo{
             this.actions.push(new ExecAction(1, board.finalCollection[board.finalCollection.length - 1], [1,0], "final box"))
         }
         console.log("at the end:",board)
+        return [this.states, this.actions]
     }
 
 }

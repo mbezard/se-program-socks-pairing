@@ -1,25 +1,36 @@
 import {useParams} from "react-router-dom";
 import SimpleAlgo from "../utils/algo/class/algorithms/SimpleAlgo"
 import {getSelectedCollection} from "../utils/collectionSelection";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import robots from "../../ressources/robots";
 import {ForwardIcon, PlayIcon, RewindIcon} from "../components/AlgorithmIcons";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
     const algoIndex = params?.algo
-    let algo = null
     let collection = getSelectedCollection()
     const [step, setStep] = useState(0)
+    const forceUpdate = useForceUpdate();
+    let algo = null
+
+    const [states, setStates] = useState([])
+    const [actions, setActions] = useState([])
 
     if (parseInt(algoIndex) === 0) {
         algo = new SimpleAlgo()
     }
 
-    algo?.generateStatesAndActions(collection)
+    useEffect(() => {
+        console.log("mount", algo)
+        const [tempStates, tempActions] = algo.generateStatesAndActions(collection)
+        setStates(tempStates)
+        setActions(tempActions)
+        forceUpdate()
+    }, [algoIndex])
 
-    console.log("states: ", algo?.states)
-    console.log("actions: ", algo?.actions)
+
+    console.log("states: ", states)
+    console.log("actions: ", actions)
 
     return (
         <div className={"h-screen flex content-center bg-greyLight-1"}>
@@ -27,18 +38,17 @@ export default function SockPairingAlgorithm() {
                 <div className={"shadow-xl rounded m-4 p-5"}>
                     <div>Step n°{step}</div>
                     <div style={{width: "50rem", height: "40rem"}}>
-                        {algo?.states[step].getHtml()}
+                        {states[step]?.getHtml()}
                     </div>
-
-
                 </div>
+
                 <div className={"rounded flex-col m-4 p-5 bg-gray-600"}>
                     <div>
                         <img src={robots[algoIndex]} alt="robot" className={"h-20 m-auto"}/>
                     </div>
                     <div className={"rounded bg-gray-500 m-3 p-3 overflow-x-auto"}
                          style={{width: "20rem", height: "35rem"}}>
-                        {algo?.actions.filter((v, i) => i<step).map((action, i) => (
+                        {actions.filter((v, i) => i < step).map((action, i) => (
                                 <div key={i} className={"text-white my-3"}>{action.getLogText()}</div>
                             )
                         )}
@@ -51,9 +61,10 @@ export default function SockPairingAlgorithm() {
                         </div>
                         <div className={"button-primary mx-1 my-2"}>
                             <PlayIcon className={"h-10 w-10"}/>
+                            {/*todo play button*/}
                         </div>
                         <div className={"button-primary mx-1 my-2"}
-                             onClick={() => setStep(prev => Math.min(prev + 1, algo?.states.length-1))}>
+                             onClick={() => setStep(prev => Math.min(prev + 1, states.length - 1))}>
                             <ForwardIcon className={"h-10 w-10"}/>
                         </div>
 
@@ -63,4 +74,9 @@ export default function SockPairingAlgorithm() {
             </div>
         </div>
     )
+}
+
+function useForceUpdate(){
+    const [value, setValue] = useState(true);
+    return () => setValue(value => !value);
 }

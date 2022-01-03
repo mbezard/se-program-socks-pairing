@@ -4,15 +4,17 @@ import Board from "./Board";
 export default class ExecState {
     constructor(board = null) {
         if (board != null) {
-            // console.log("state receiving board", board)
+            console.log("state receiving board (after parse)", JSON.parse(JSON.stringify(board.finalCollection)))
 
             //copying initial collection
             this.board.initialCollection = JSON.parse(JSON.stringify(board.initialCollection)).map(sock =>
                 new Sock({...sock?.param, ...sock?.dimension})
             )
             //copying final collection
-            this.board.finalCollection = JSON.parse(JSON.stringify(board.finalCollection)).map(sock =>
-                new Sock({...sock?.param, ...sock?.dimension})
+            this.board.finalCollection = JSON.parse(JSON.stringify(board.finalCollection)).map(pair => {
+                    console.log(pair)
+                    return pair.map(sock => new Sock({...sock?.param, ...sock?.dimension}))
+                }
             )
 
             //copying board
@@ -31,7 +33,8 @@ export default class ExecState {
                 }
             }
 
-            // console.log("state computing board", this.board)
+            console.log("state computing board", this.board)
+            console.log("-")
         }
     }
 
@@ -68,7 +71,19 @@ export default class ExecState {
                 </div>
                 <div className={"w-full h-24 mt-6"}>
                     <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex"}>
-                        {this.board.finalCollection.map((sock, i) => sock.getComponent({height: 50, width: 50}, i))}
+                        {this.board.finalCollection.map((pair, i) => (
+                            <div key={i} className={"inline-flex"} style={{minWidth: "4rem"}}>
+                                <div>
+                                    {pair[0] && pair[0].getComponent({height: 50, width: 50})}
+                                </div>
+                                {pair[1] &&
+                                <div className={"relative"} style={{
+                                    marginLeft: "-" + (50 / 2) + "px"
+                                }}>
+                                    {pair[1].getComponent({height: 50, width: 50})}
+                                </div>}
+                            </div>)
+                        )}
                     </div>
                 </div>
             </div>

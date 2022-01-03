@@ -2,7 +2,7 @@ export default class ExecAction {
     /*
     sock movement or box creation (with sock movement)
      */
-
+    //todo add visual animation
     constructor(category, sockConcerned = undefined, fromCoordinates = "initial box", toCoordinates = "final box") {
         this.category = category
         if (sockConcerned) this.sockConcerned = sockConcerned
@@ -54,8 +54,5 @@ export default class ExecAction {
         </p>
     }
 
-    applyTo = (state) => {
-        //todo
-    }
 
 }

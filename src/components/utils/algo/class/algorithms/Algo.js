@@ -8,8 +8,8 @@ export default class Algo{
         }
     }
 
-    states = []
-    actions = []
+    // states = []
+    // actions = []
 
     generateStatesAndActions() {
         throw new Error("Method 'generateStatesAndActions()' must be implemented.");

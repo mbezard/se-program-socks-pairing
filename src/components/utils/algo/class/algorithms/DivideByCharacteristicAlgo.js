@@ -1,4 +1,4 @@
-class DivideByCharacteristicAlgo{
+class DivideByCharacteristicAlgo{//todo
     /*
     *Similar to divide algo*
     Pick a sock, put it in one box,
