@@ -15,4 +15,8 @@ export default class Board extends Array{
 
     initialCollection = [] //list of socks
     finalCollection = [] //list of pairs
+
+    addEmptyRow = () => {
+        this.push([])
+    }
 }

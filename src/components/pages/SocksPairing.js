@@ -10,7 +10,7 @@ import {getText} from "../utils/tutorialStory";
 import {setSelectedCollection} from "../utils/collectionSelection";
 import robots from "../../ressources/robots";
 
-export default function SocksPairing({withProgress = false}) {
+export default function SocksPairing({withProgress = false}) {//todo add parameters to robots
     const socks = useSelector(sockCollectionSelector)
     let [robotSelected, setRobotSelected] = useState(-1)
     let [collectionSelectedIndex, setCollectionSelectedIndex] = useState(-2)

@@ -10,7 +10,7 @@ export default class ExecAction {
         this.toCoordinates = toCoordinates
     }
 
-    category = 0 //1:movement, 2:box creation, 3:look at, 4:move box
+    category = 0 //1:movement, 2:box creation, 3:look at, 4:move box //todo update
     socksConcerned = []
     fromCoordinates = [0, 0]
     toCoordinates = [0, 0]

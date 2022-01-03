@@ -4,6 +4,7 @@ import {getSelectedCollection} from "../utils/collectionSelection";
 import React, {useEffect, useState} from "react";
 import robots from "../../ressources/robots";
 import {ForwardIcon, PauseIcon, PlayIcon, RewindIcon} from "../components/AlgorithmIcons";
+import SimpleDivideAndSweepAlgo from "../utils/algo/class/algorithms/SimpleDivideAndSweepAlgo";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
@@ -20,11 +21,12 @@ export default function SockPairingAlgorithm() {
 
     if (parseInt(algoIndex) === 0) {
         algo = new SimpleAlgo()
+    } else if (parseInt(algoIndex) === 1) {
+        algo = new SimpleDivideAndSweepAlgo()
     }
 
     useEffect(() => {
-        console.log("mount", algo)
-        const [tempStates, tempActions] = algo.generateStatesAndActions(collection)
+        const [tempStates, tempActions] = algo?.generateStatesAndActions(collection)
         setStates(tempStates)
         setActions(tempActions)
         forceUpdate()

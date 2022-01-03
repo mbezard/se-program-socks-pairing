@@ -4,7 +4,7 @@ import Board from "./Board";
 export default class ExecState {
     constructor(board = null) {
         if (board != null) {
-            console.log("state receiving board (after parse)", JSON.parse(JSON.stringify(board.finalCollection)))
+            // console.log("state receiving board (after parse)", JSON.parse(JSON.stringify(board.finalCollection)))
 
             //copying initial collection
             this.board.initialCollection = JSON.parse(JSON.stringify(board.initialCollection)).map(sock =>
@@ -12,7 +12,7 @@ export default class ExecState {
             )
             //copying final collection
             this.board.finalCollection = JSON.parse(JSON.stringify(board.finalCollection)).map(pair => {
-                    console.log(pair)
+                    // console.log(pair)
                     return pair.map(sock => new Sock({...sock?.param, ...sock?.dimension}))
                 }
             )
@@ -33,8 +33,8 @@ export default class ExecState {
                 }
             }
 
-            console.log("state computing board", this.board)
-            console.log("-")
+            // console.log("state computing board", this.board)
+            // console.log("-")
         }
     }
 
@@ -56,7 +56,7 @@ export default class ExecState {
                         <div className={"flex justify-center border-t-2 border-b-2 border-black mx-8 py-2"} key={i}>
                             {row.map((boxOrSocks, j) => (
                                 <div key={j}
-                                     className={"flex inline-flex justify-center border-4 border-gray-700 bg-gray-400 whitespace-nowrap"}
+                                     className={"flex inline-flex justify-center border-4 border-gray-700 bg-gray-400 whitespace-nowrap mx-5"}
                                      style={{minWidth: "8rem", minHeight: "6rem"}}>
                                     {
                                         (boxOrSocks.length !== 0 && (boxOrSocks[0] instanceof Sock)) ?
