@@ -3,13 +3,15 @@ import SimpleAlgo from "../utils/algo/class/algorithms/SimpleAlgo"
 import {getSelectedCollection} from "../utils/collectionSelection";
 import React, {useEffect, useState} from "react";
 import robots from "../../ressources/robots";
-import {ForwardIcon, PlayIcon, RewindIcon} from "../components/AlgorithmIcons";
+import {ForwardIcon, PauseIcon, PlayIcon, RewindIcon} from "../components/AlgorithmIcons";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
     const algoIndex = params?.algo
     let collection = getSelectedCollection()
     const [step, setStep] = useState(0)
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [playInterval, setPlayInterval] = useState(0)
     const forceUpdate = useForceUpdate();
     let algo = null
 
@@ -28,9 +30,23 @@ export default function SockPairingAlgorithm() {
         forceUpdate()
     }, [algoIndex])
 
+    useEffect(() => {
+        if (isPlaying === true) {
+            console.log("start")
+            setPlayInterval(setInterval(() => setStep(v => v + 1), 500))
+        } else if (isPlaying === false) {
+            console.log("stop")
+            clearInterval(playInterval)
+        }
+    }, [isPlaying])
 
-    console.log("states: ", states)
-    console.log("actions: ", actions)
+    if (step >= states.length) {
+        clearInterval(playInterval)
+        setStep(states.length - 1)
+    }
+
+    // console.log("states: ", states)
+    // console.log("actions: ", actions)
 
     return (
         <div className={"h-screen flex content-center bg-greyLight-1"}>
@@ -59,10 +75,17 @@ export default function SockPairingAlgorithm() {
                              onClick={() => setStep(prev => Math.max(prev - 1, 0))}>
                             <RewindIcon className={"h-10 w-10"}/>
                         </div>
-                        <div className={"button-primary mx-1 my-2"}>
-                            <PlayIcon className={"h-10 w-10"}/>
-                            {/*todo play button*/}
-                        </div>
+
+                        {isPlaying ?
+                            <div className={"button-primary mx-1 my-2"} onClick={() => setIsPlaying(false)}>
+                                <PauseIcon className={"h-10 w-10"}/>
+                            </div>
+                            :
+                            <div className={"button-primary mx-1 my-2"} onClick={() => setIsPlaying(true)}>
+                                <PlayIcon className={"h-10 w-10"}/>
+                            </div>
+                        }
+
                         <div className={"button-primary mx-1 my-2"}
                              onClick={() => setStep(prev => Math.min(prev + 1, states.length - 1))}>
                             <ForwardIcon className={"h-10 w-10"}/>
@@ -76,7 +99,7 @@ export default function SockPairingAlgorithm() {
     )
 }
 
-function useForceUpdate(){
+function useForceUpdate() {
     const [value, setValue] = useState(true);
     return () => setValue(value => !value);
 }
