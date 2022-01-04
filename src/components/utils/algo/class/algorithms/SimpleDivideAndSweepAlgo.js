@@ -1,16 +1,13 @@
 import Algo from "./Algo";
 import Board from "../Board";
 import ExecState from "../ExecState";
-import ExecAction from "../ExecAction";
+import ExecAction, {ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
 
 export default class SimpleDivideAndSweepAlgo extends Algo {
     /*
     Maybe:
     then use colors (can have any order for the colors, e.g. alphabetically by color name)
-    - split them into piles by color (remember to keep the initial order from step 1 for all socks in the same pile),
-        then length of the sock,
-        then texture, ....
-        until all socks in a group are the same
+    - split them into piles
      */
 
 
@@ -35,10 +32,10 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                 const sock = board.initialCollection.pop()
                 let hasFoundBox = false
                 for (let i = 0; i < board[0].length; i++) {
-                    if (board[0][i][0].isSameAs(sock)) {
+                    if (board[0][i][0].isSameAs(sock)) {//todo add in the states and actions
                         board[0][i].push(sock)
                         this.states.push(new ExecState(board))
-                        this.actions.push(new ExecAction(1, [sock], "initial box", [0, i]))
+                        this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, i]))
                         hasFoundBox = true
                         break
                     }
@@ -46,7 +43,7 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                 if (!hasFoundBox) {
                     board[0].push([sock])
                     this.states.push(new ExecState(board))
-                    this.actions.push(new ExecAction(1, [sock], "initial box", [0, board[0].length]))
+                    this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, board[0].length-1]))
                 }
             }
 
@@ -60,7 +57,7 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                         console.log("pair:",pair)
                         board.finalCollection.push(pair)
                         this.states.push(new ExecState(board))
-                        this.actions.push(new ExecAction(1, pair, [0,index], "final box"))
+                        this.actions.push(new ExecAction(ACTION_MOVE_PAIR, pair, [0,index], "final box"))
                         continue
                     }
                     //if 1 sock
@@ -68,7 +65,7 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                     console.log("sock:",sock)
                     board.finalCollection.push([sock])
                     this.states.push(new ExecState(board))
-                    this.actions.push(new ExecAction(1, [sock], [0,index], "final box"))
+                    this.actions.push(new ExecAction(ACTION_MOVE_PAIR, [sock], [0,index], "final box"))
                 }
             })
         }
