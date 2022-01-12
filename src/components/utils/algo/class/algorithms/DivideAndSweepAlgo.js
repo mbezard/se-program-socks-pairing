@@ -1,7 +1,7 @@
 import Algo from "./Algo";
 import Board from "../Board";
 import ExecState from "../ExecState";
-import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
+import ExecAction, {ACTION_COMPARISON, ACTION_COMPARISON_SIMPLE, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
 import {paramDict} from "../Sock";
 
 export default class DivideAndSweepAlgo extends Algo {
@@ -26,7 +26,6 @@ export default class DivideAndSweepAlgo extends Algo {
         board.initialCollection.sort((a, b) => 0.5 - Math.random());//shuffle
         const state = new ExecState(board)
         this.states.push(state)
-        const nbOfSocks = board.initialCollection.length
 
         console.log("at start:", board)
         //divide & sweep
@@ -38,6 +37,9 @@ export default class DivideAndSweepAlgo extends Algo {
                 const sock = box.pop()
                 let hasFoundBox = false
                 for (let i = 0; i < board[step].length; i++) {
+                    //simple comparison
+                    this.states.push(new ExecState(board))
+                    this.actions.push(new ExecAction(ACTION_COMPARISON_SIMPLE, [board[step][i][0], sock], "", "", Object.keys(paramDict)[step]))
                     if (board[step][i][0].hasSameFeature(sock, Object.keys(paramDict)[step])) {//same car
                         board[step][i].push(sock)
                         this.states.push(new ExecState(board))
@@ -102,10 +104,10 @@ export default class DivideAndSweepAlgo extends Algo {
             step++
             board.addEmptyRow()
             console.log("start", step, board)
-            for (let boxIndex = 0; boxIndex < board[step-1].length; boxIndex++) {
+            for (let boxIndex = 0; boxIndex < board[step - 1].length; boxIndex++) {
                 console.log("divide ", boxIndex, board)
-                if (board[step-1][boxIndex].length !== 0) {
-                    console.log("dividing" ,step, boxIndex)
+                if (board[step - 1][boxIndex].length !== 0) {
+                    console.log("dividing", step, boxIndex)
                     divide(boxIndex, board, step)
                 }
             }

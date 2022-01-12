@@ -4,21 +4,23 @@ export default class ExecAction {
      */
 
     //todo add visual animation
-    constructor(category, sockConcerned = undefined, fromCoordinates = "initial box", toCoordinates = "final box") {
+    constructor(category, sockConcerned = undefined, fromCoordinates = "initial box", toCoordinates = "final box", extraParam) {
         this.category = category
         if (sockConcerned) this.sockConcerned = sockConcerned
         this.fromCoordinates = fromCoordinates
         this.toCoordinates = toCoordinates
+        this.extraParam = extraParam
     }
 
     category = ""
     socksConcerned = []
     fromCoordinates = [0, 0]
     toCoordinates = [0, 0]
+    extraParam = null
 
 
     getLogText = () => {
-        if (this.category === ACTION_COMPARISON) {
+        if (this.category === ACTION_COMPARISON || this.category === ACTION_COMPARISON_SIMPLE) {
             return (
                 <p className={"flex flex-wrap whitespace-nowrap"}>
                     <span>Sock </span>
@@ -55,6 +57,16 @@ export default class ExecAction {
                             }
                         </>
                     }
+
+                    {
+                        this.category === ACTION_COMPARISON_SIMPLE &&
+                        <>
+                            <span> (simple</span>
+                            <span> comparison based on </span>
+                            <span>{this.extraParam}</span>
+                            <span>)</span>
+                        </>
+                    }
                 </p>
             )
         }
@@ -89,3 +101,4 @@ export default class ExecAction {
 export const ACTION_MOVE = "ACTION_MOVE"
 export const ACTION_COMPARISON = "ACTION_COMPARISON"
 export const ACTION_MOVE_PAIR = "ACTION_MOVE_PAIR"
+export const ACTION_COMPARISON_SIMPLE = "ACTION_COMPARISON_SIMPLE"
