@@ -1,3 +1,5 @@
+import {toStandardCase} from "../../utilsFunctions";
+
 export default class ExecAction {
     /*
     sock movement or box creation (with sock movement)
@@ -63,7 +65,7 @@ export default class ExecAction {
                         <>
                             <span> (simple</span>
                             <span> comparison based on </span>
-                            <span>{this.extraParam}</span>
+                            <span>{toStandardCase(this.extraParam)}</span>
                             <span>)</span>
                         </>
                     }

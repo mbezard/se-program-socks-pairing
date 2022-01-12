@@ -2,7 +2,7 @@ import SockComponent from "../../../components/SockComponent";
 
 class Sock {
     constructor({
-                    color = "blue",
+                    color = "red",
                     lineAmount = 3,
                     size = 0,
                     pattern = "dots",
@@ -11,7 +11,7 @@ class Sock {
                     width = 100,
                 } =
                     {
-                        color: "#f55648",
+                        color: "red",
                         lineAmount: 3,
                         size: 0,
                         pattern: "dots",
