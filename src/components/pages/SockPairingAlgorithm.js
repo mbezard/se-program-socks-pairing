@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import robots from "../../ressources/robots";
 import {ForwardIcon, PauseIcon, PlayIcon, RewindIcon} from "../components/AlgorithmIcons";
 import SimpleDivideAndSweepAlgo from "../utils/algo/class/algorithms/SimpleDivideAndSweepAlgo";
+import DivideAndSweepAlgo from "../utils/algo/class/algorithms/DivideAndSweepAlgo";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
@@ -23,6 +24,8 @@ export default function SockPairingAlgorithm() {
         algo = new SimpleAlgo()
     } else if (parseInt(algoIndex) === 1) {
         algo = new SimpleDivideAndSweepAlgo()
+    } else if (parseInt(algoIndex) === 2) {
+        algo = new DivideAndSweepAlgo()
     }
 
     useEffect(() => {
@@ -34,10 +37,10 @@ export default function SockPairingAlgorithm() {
 
     useEffect(() => {
         if (isPlaying === true) {
-            console.log("start")
+            // console.log("start")
             setPlayInterval(setInterval(() => setStep(v => v + 1), 500))
         } else if (isPlaying === false) {
-            console.log("stop")
+            // console.log("stop")
             clearInterval(playInterval)
         }
     }, [isPlaying])

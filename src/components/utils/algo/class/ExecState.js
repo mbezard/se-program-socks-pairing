@@ -43,7 +43,7 @@ export default class ExecState {
     getNumberOfRows = () => this.board.length
     getNumberOfColumns = () => Math.max(this.board.map(row => row.length))
 
-    getHtml = () => {
+    getHtml = () => {//todo print l'étape de l'algo (si y en a une)
         return (
             <div className={"flex flex-col"}>
                 <div className={"w-full h-24 mb-6"}>

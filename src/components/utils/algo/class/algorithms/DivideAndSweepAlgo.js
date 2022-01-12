@@ -2,8 +2,9 @@ import Algo from "./Algo";
 import Board from "../Board";
 import ExecState from "../ExecState";
 import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
+import {paramDict} from "../Sock";
 
-export default class SimpleDivideAndSweepAlgo extends Algo {//todo
+export default class DivideAndSweepAlgo extends Algo {
     /*
     Maybe:
     then use colors (can have any order for the colors, e.g. alphabetically by color name)
@@ -30,14 +31,15 @@ export default class SimpleDivideAndSweepAlgo extends Algo {//todo
         console.log("at start:", board)
         //divide & sweep
 
-        const divide = (boxIndex, board, step) => {
-            board.addEmptyRow()
-            while (board[step][boxIndex].length !== 0) {
-                const sock = board[step][boxIndex].pop()
+        const divide = (boxIndex, board, step) => {//divide 1 box
+            let box = step === 0 ? board.initialCollection : board[step - 1][boxIndex]
+            console.log("box", box)
+            while (box.length !== 0) {
+                const sock = box.pop()
                 let hasFoundBox = false
-                for (let i = 0; i < board[step + 1].length; i++) {
-                    if (board[step + 1][i][0].isSameAs(sock)) {//same car
-                        board[step + 1][i].push(sock)
+                for (let i = 0; i < board[step].length; i++) {
+                    if (board[step][i][0].hasSameFeature(sock, Object.keys(paramDict)[step])) {//same car
+                        board[step][i].push(sock)
                         this.states.push(new ExecState(board))
                         this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, i]))
                         hasFoundBox = true
@@ -45,7 +47,7 @@ export default class SimpleDivideAndSweepAlgo extends Algo {//todo
                     }
                 }
                 if (!hasFoundBox) {
-                    board[0].push([sock])
+                    board[step].push([sock])
                     this.states.push(new ExecState(board))
                     this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, board[0].length]))
                 }
@@ -54,13 +56,15 @@ export default class SimpleDivideAndSweepAlgo extends Algo {//todo
         }
 
         const sweep = (board, step) => {
+            let isAllPaired = true
             board[step].forEach((box, index) => {
                 let areAllSame = true
                 for (let i = 0; i < box.length - 1; i++) {
                     this.states.push(new ExecState(board))
-                    this.states.push(new ExecAction(ACTION_COMPARISON, [box[i], box[i + 1]],"", ""))
+                    this.actions.push(new ExecAction(ACTION_COMPARISON, [box[i], box[i + 1]], "", ""))
                     if (!box[i].isSameAs(box[i + 1])) {
                         areAllSame = false
+                        isAllPaired = false
                     }
                 }
 
@@ -83,11 +87,31 @@ export default class SimpleDivideAndSweepAlgo extends Algo {//todo
                     }
                 }
             })
+            return isAllPaired
         }
 
+        let step = 0
+        board.addEmptyRow()
+        divide(0, board, step)
+        console.log("after divide ", board)
+        let isAllPaired = sweep(board, step)
+        console.log("after sweep ", board)
 
-        divide(board)
-        sweep(board)
+        console.log("isAllpaire", isAllPaired)
+        while (!isAllPaired) {
+            step++
+            board.addEmptyRow()
+            console.log("start", step, board)
+            for (let boxIndex = 0; boxIndex < board[step-1].length; boxIndex++) {
+                console.log("divide ", boxIndex, board)
+                if (board[step-1][boxIndex].length !== 0) {
+                    console.log("dividing" ,step, boxIndex)
+                    divide(boxIndex, board, step)
+                }
+            }
+            console.log("before sweep", board)
+            isAllPaired = sweep(board, step)
+        }
 
 
         return [this.states, this.actions]

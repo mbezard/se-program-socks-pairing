@@ -2,7 +2,7 @@ import SockComponent from "../../../components/SockComponent";
 
 class Sock {
     constructor({
-                    color = "#f55648",
+                    color = "blue",
                     lineAmount = 3,
                     size = 0,
                     pattern = "dots",
@@ -42,6 +42,10 @@ class Sock {
         return JSON.stringify(this.param) === JSON.stringify(sock.param)
     }
 
+    hasSameFeature = (sock, featureName) => {
+        return this.param[featureName] === sock.param[featureName]
+    }
+
     static orderCollection = (collection = []) => {
         let finalCollection = []
         for (let sock of collection) {
@@ -63,10 +67,10 @@ class Sock {
 }
 
 export const paramDict = {
-    color: ["black", "blue", "red"],
+    color: ["black", "blue", "red", "green"],
     lineAmount: [0, 1, 2, 3],
     pattern: ["dots", "None"],
-    patternColor: ["black", "blue", "red", "orange"],
+    patternColor: ["black", "blue", "red", "green", "orange"],
 
 }
 
