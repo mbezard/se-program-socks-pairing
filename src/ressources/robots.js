@@ -2,4 +2,15 @@ import Robot1 from "./robot-1.png"
 import Robot2 from "./robot-2.png"
 import Robot3 from "./robot-3.png"
 
-export default [Robot1, Robot2, Robot3]
+const robots = [Robot1, Robot2, Robot3]
+export default robots;
+
+export const robotColors = ["yellow", "green", "blue"]
+
+export const robotNames = ["yellow", "green", "blue"]
+
+export const robotDescription = ["Simple, human algorithm", "Simple Divide & Sweep", "Dive & Sweep"]
+
+export const robotAlgorithm = ["1 Do something", "1 Do something", "1 Do something"]
+
+

@@ -8,19 +8,21 @@ import ModalWiseBot from "../components/ModalWiseBot";
 import {getProgress} from "../utils/Progress";
 import {getText} from "../utils/tutorialStory";
 import {setSelectedCollection} from "../utils/collectionSelection";
-import robots from "../../ressources/robots";
+import robots, {robotAlgorithm, robotColors, robotDescription, robotNames} from "../../ressources/robots";
+import BasicModal from "../components/BasicModal";
 
 export default function SocksPairing({withProgress = false}) {//todo add parameters to robots
     const socks = useSelector(sockCollectionSelector)
-    let [robotSelected, setRobotSelected] = useState(-1)
-    let [collectionSelectedIndex, setCollectionSelectedIndex] = useState(-2)
-    let [progress, setProgress] = useState(getProgress())
+    const [robotSelected, setRobotSelected] = useState(-1)
+    const [collectionSelectedIndex, setCollectionSelectedIndex] = useState(-2)
+    const [progress, setProgress] = useState(getProgress())
+    const [robotModalIndex, setRobotModalIndex] = useState(-1)
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(collectionSelectedIndex === -1) setSelectedCollection(socks)
-        if(collectionSelectedIndex >= 0) setSelectedCollection(defaultSockCollections[collectionSelectedIndex].socks)
-    }, [collectionSelectedIndex])
+        if (collectionSelectedIndex === -1) setSelectedCollection(socks)
+        if (collectionSelectedIndex >= 0) setSelectedCollection(defaultSockCollections[collectionSelectedIndex].socks)
+    }, [collectionSelectedIndex, socks])
 
     const tutorialText = getText(progress)
 
@@ -62,6 +64,33 @@ export default function SocksPairing({withProgress = false}) {//todo add paramet
                                          className={"mx-2 p-2 border-2 border-grey rounded " + (robotSelected === i ? "shadow-selected" : "shadow-unselected")}
                                          onClick={() => setRobotSelected(i)}>
                                         <img src={r} alt="robot" className={"h-20"}/>
+                                        <div className={"flex justify-center my-4"}>
+                                            <div className={`-ml-3 border-l-8 h-80 border-${robotColors[i]}-400`}/>
+                                        </div>
+                                        <div>
+                                            <div className={"button-primary"}
+                                                 onClick={() => setRobotModalIndex(i)}>Details
+                                            </div>
+                                            <BasicModal isShownByDefault={robotModalIndex === i}
+                                                        onExit={() => setRobotModalIndex(-1)}>
+                                                <div className={"flex flex-col"}>
+                                                    <div className={"title text-xl text-center"}>{robotNames[i]}</div>
+                                                    <div className={"flex flex-row"}>
+                                                        <img src={r} alt="robot" className={"h-32 mt-4"}/>
+                                                        <div className={"bg-white m-4 p-4 rounded "}>
+                                                            <div className={"font-bold"}>Description:</div>
+                                                            <div>{robotDescription[i]}</div>
+                                                            <div className={"font-bold mt-2"}>Algorithm:</div>
+                                                            <div className={"bg-black text-white rounded p-3"}>
+                                                                <code>{robotAlgorithm[i]}</code>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </BasicModal>
+                                        </div>
+
                                     </div>
                                 ))
                             }
