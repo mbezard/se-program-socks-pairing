@@ -11,7 +11,6 @@ export default function ReactRoutes() {
             <Routes>
                 <Route path={"/"} element={<MainPage/>} />
                 <Route path={"/socks-pairing"} element={<SocksPairing/>} />
-                <Route path={"/socks-pairing-with-tutorial"} element={<SocksPairing withProgress={true}/>} />
                 <Route path={"/socks-collection-edit"} element={<SocksEditPage />} />
                 <Route path={"/socks-pairing-algorithm/:algo"} element={<SockPairingAlgorithm />} />
                 {/*<Route path={"/socks-pairing-algorithm"} element={<SockPairingAlgorithm />} />*/}

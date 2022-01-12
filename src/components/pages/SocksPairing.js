@@ -4,18 +4,15 @@ import {sockCollectionSelector} from "../utils/store/SockCollection/SockCollecti
 import {Link, useNavigate} from "react-router-dom";
 import SockCollectionComponent from "../components/SockCollectionComponent";
 import defaultSockCollections from "../utils/defaultSockCollections";
-import ModalWiseBot from "../components/ModalWiseBot";
-import {getProgress} from "../utils/Progress";
-import {getText} from "../utils/tutorialStory";
+import Tutorial from "../components/Tutorial";
 import {setSelectedCollection} from "../utils/collectionSelection";
 import robots, {robotAlgorithm, robotColors, robotDescription, robotNames} from "../../ressources/robots";
 import BasicModal from "../components/BasicModal";
 
-export default function SocksPairing({withProgress = false}) {//todo add parameters to robots
+export default function SocksPairing() {//todo add parameters to robots
     const socks = useSelector(sockCollectionSelector)
     const [robotSelected, setRobotSelected] = useState(-1)
     const [collectionSelectedIndex, setCollectionSelectedIndex] = useState(-2)
-    const [progress, setProgress] = useState(getProgress())
     const [robotModalIndex, setRobotModalIndex] = useState(-1)
     const navigate = useNavigate()
 
@@ -24,7 +21,6 @@ export default function SocksPairing({withProgress = false}) {//todo add paramet
         if (collectionSelectedIndex >= 0) setSelectedCollection(defaultSockCollections[collectionSelectedIndex].socks)
     }, [collectionSelectedIndex, socks])
 
-    const tutorialText = getText(progress)
 
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
         <div className={"flex flex-col m-auto shadow-xl content-center p-5 "}>
@@ -110,10 +106,7 @@ export default function SocksPairing({withProgress = false}) {//todo add paramet
         </div>
 
 
-        {withProgress &&
-        <ModalWiseBot isShownByDefault={tutorialText && true} onExit={() => setProgress(prev => prev + 1)}>
-            {tutorialText}
-        </ModalWiseBot>
-        }
+        <Tutorial />
+
     </div>
 }
