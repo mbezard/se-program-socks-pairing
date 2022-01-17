@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {activateTutorial, deactivateTutorial} from "../utils/Progress";
+import {activateTutorial, deactivateTutorial} from "../utils/tutorial/Progress";
 
 export default function MainPage() {
     return (<div className={"h-screen flex content-center bg-greyLight-1"}>

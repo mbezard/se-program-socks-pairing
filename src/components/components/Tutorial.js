@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import WiseBotIcon from "../../ressources/WisebotIcon";
-import {getProgressFromMemory, isTutorialActivated, setProgressInMemory} from "../utils/Progress";
-import {getTutorialStep, STEP_NOTHING, STEP_WAIT} from "../utils/tutorialStory";
+import {getProgressFromMemory, isTutorialActivated, setProgressInMemory} from "../utils/tutorial/Progress";
+import {getTutorialStep, STEP_NOTHING, STEP_WAIT} from "../utils/tutorial/tutorialStory";
 
 export default function Tutorial() {
     const isTutorialActive = isTutorialActivated()

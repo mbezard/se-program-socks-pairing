@@ -57,9 +57,18 @@ export default function SockPairingAlgorithm() {
         <div className={"h-screen flex content-center bg-greyLight-1"}>
             <div className={"m-auto inline-flex content-center"}>
                 <div className={"shadow-xl rounded m-4 p-5"}>
-                    <div>Step n°{step}</div>
-                    <div style={{width: "50rem", height: "40rem"}}>
+                    <div>Step n°{step} {actions[step]?.title && <> - {actions[step]?.title}</>}</div>
+                    <div style={{width: "50rem", minHeight: "40rem"}}>
                         {states[step]?.getHtml()}
+                        {step >= actions.length &&
+                        <div className={"my-4 w-full text-center"}>
+                            Analytics
+                            <br/>
+                            Number of comparisons: {actions.filter(value => value.category.includes("COMPARISON")).length}
+                            <br/>
+                            Number of moves: {actions.filter(value => value.category.includes("MOVE")).length}
+                        </div>
+                        }
                     </div>
                 </div>
 
