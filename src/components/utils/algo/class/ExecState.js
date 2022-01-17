@@ -54,10 +54,10 @@ export default class ExecState {
                 </div>
                 <div>
                     {this.board.map((row, i) => (
-                        <div className={"flex justify-center border-t-2 border-b-2 border-black mx-8 py-2"} key={i}>
+                        <div className={"flex justify-center flex-wrap border-t-2 border-b-2 border-black mx-8 py-2"} key={i}>
                             {row.map((boxOrSocks, j) => (
                                 <div key={j}
-                                     className={"flex inline-flex justify-center border-4 border-gray-700 bg-gray-400 whitespace-nowrap mx-5"}
+                                     className={"flex inline-flex justify-center border-4 border-gray-700 bg-gray-400 whitespace-nowrap mb-3 mx-5"}
                                      style={{minWidth: "8rem", minHeight: "6rem"}}>
                                     {
                                         (boxOrSocks.length !== 0 && (boxOrSocks[0] instanceof Sock)) ?

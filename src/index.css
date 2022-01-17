@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    body{
+        @apply bg-greyLight-1;
+    }
+
     .button-primary {
         @apply bg-primary text-white rounded px-4 py-3 text-center cursor-pointer
     }
