@@ -1,26 +1,37 @@
 import {useEffect, useState} from "react";
 import WiseBotIcon from "../../ressources/WisebotIcon";
-import {getProgress, isTutorialActivated} from "../utils/Progress";
-import {getText} from "../utils/tutorialStory";
+import {getProgressFromMemory, isTutorialActivated, setProgressInMemory} from "../utils/Progress";
+import {getTutorialStep, STEP_NOTHING, STEP_WAIT} from "../utils/tutorialStory";
 
 export default function Tutorial() {
     const isTutorialActive = isTutorialActivated()
-    const [progress, setProgress] = useState(getProgress())
+    const [progress, setProgress] = useState(parseInt(getProgressFromMemory()))
+    const [tutorialStep, setTutorialStep] = useState({type: null, text: ""})
     const incrementProgress = () => setProgress(prev => prev + 1)
     const [isShown, setIsShown] = useState(false)
 
     const onClose = () => {
         console.log("onclose")
         incrementProgress()
-        setIsShown(false)
     }
 
     useEffect(() => {
-        if(getText(progress) !== null) {
-            setIsShown(true)
-        }
+        setProgressInMemory(progress)
+        setTutorialStep(getTutorialStep(progress))
     }, [progress])
 
+    useEffect(() => {
+        if (tutorialStep.type == null || tutorialStep.type === STEP_NOTHING) {
+            setIsShown(false)
+        } else if(tutorialStep.type === STEP_WAIT) {
+            setIsShown(false)
+            setTimeout(() => {incrementProgress()}, 3000)
+        }else {
+            setIsShown(true)
+        }
+    }, [tutorialStep])
+
+    // console.log(tutorialStep)
 
     return (<>
         {isTutorialActive && isShown && <div className={"overflow-hidden fixed max-h-full max-w-full z-40 inset-0"}>
@@ -31,9 +42,9 @@ export default function Tutorial() {
 
 
             <div className={"absolute top-1/2 left-1/2 z-50"} style={{transform: "translate(-50%, -50%)"}}>
-                <div className={"relative z-50 bg-white min-h-5 min-w-15 rounded p-5"}>
+                <div className={"relative z-50 bg-white rounded p-5"} style={{minWidth: "12em", minHeight: "4em"}}>
                     <div>
-                        {getText(progress)}
+                        {tutorialStep.text}
                     </div>
 
                     <div className={"absolute -bottom-2 right-5 w-5 h-5 bg-white"}
@@ -45,5 +56,8 @@ export default function Tutorial() {
             <div onClick={onClose} className="opacity-25 fixed inset-0 z-40 bg-black"/>
 
         </div>}
+
+        {tutorialStep?.type === STEP_WAIT &&
+        <div className={"overflow-hidden fixed max-h-full max-w-full z-40 inset-0"}/>}
     </>)
 }

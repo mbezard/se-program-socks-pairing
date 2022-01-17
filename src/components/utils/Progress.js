@@ -1,8 +1,8 @@
-export function getProgress() {//todo use a reducer
+export function getProgressFromMemory() {//todo use a reducer
     return localStorage.getItem("progress") || 0
 }
 
-export function setProgress(progress) {
+export function setProgressInMemory(progress) {
     localStorage.setItem("progress", progress)
 }
 
