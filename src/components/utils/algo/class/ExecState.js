@@ -71,13 +71,12 @@ export default class ExecState {
                                      className={"flex inline-flex justify-center pt-2 border-4 border-gray-700 bg-gray-400 whitespace-nowrap mb-3 mx-5"}
                                      style={{minWidth: "8rem", minHeight: "6rem"}}>
                                     {
-                                        (boxOrSocks.length !== 0 && (boxOrSocks[0] instanceof Sock)) ?
+                                        (boxOrSocks.length !== 0 && (boxOrSocks[0] instanceof Sock)) &&
                                             boxOrSocks.map((sock, k) => sock.getComponent({
                                                 width: 50,
                                                 height: 50,
                                                 glowing: this.isGlowing(i, j)
                                             }, k))
-                                            : "empty"
                                     }
                                 </div>
                             ))}

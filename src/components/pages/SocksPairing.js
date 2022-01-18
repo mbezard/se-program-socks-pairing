@@ -8,6 +8,7 @@ import Tutorial from "../components/Tutorial";
 import {setSelectedCollection} from "../utils/collectionSelection";
 import robots, {robotAlgorithm, robotColors, robotDescription, robotNames} from "../../ressources/robots";
 import BasicModal from "../components/BasicModal";
+import {getProgressFromMemory, incrementProgressInMemory, isTutorialActivated} from "../utils/tutorial/Progress";
 
 export default function SocksPairing() {//todo add parameters to robots
     const socks = useSelector(sockCollectionSelector)
@@ -21,6 +22,13 @@ export default function SocksPairing() {//todo add parameters to robots
         if (collectionSelectedIndex >= 0) setSelectedCollection(defaultSockCollections[collectionSelectedIndex].socks)
     }, [collectionSelectedIndex, socks])
 
+    const handleExecuteClick = () => {
+        if (isTutorialActivated() && getProgressFromMemory() === 6) {
+            incrementProgressInMemory()
+        }
+        navigate(`/socks-pairing-algorithm/${robotSelected}`)
+
+    }
 
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
         <div className={"flex flex-col m-auto shadow-xl content-center p-5 "}>
@@ -29,23 +37,31 @@ export default function SocksPairing() {//todo add parameters to robots
                     <div className={"flex-col"}>
                         <div className={"title"}>Select collection</div>
                         <div className={"inline-flex"}>
-                            {defaultSockCollections.map((col, i) => (
+                            {defaultSockCollections.filter(((value, index) => {
+                                if (!isTutorialActivated()) return true
+                                if (index > 0 && getProgressFromMemory() < 10) return false
+                                if (index > 1 && getProgressFromMemory() < 15) return false
+                                return true
+                            })).map((col, i) => (
                                 <div key={i} onClick={() => setCollectionSelectedIndex(i)}>
                                     <SockCollectionComponent socks={col.socks} title={col.title}
                                                              small={col.socks.length > 9}
                                                              isSelected={collectionSelectedIndex === i}/>
                                 </div>
                             ))}
-                            <div onClick={() => setCollectionSelectedIndex(-1)}>
-                                <SockCollectionComponent socks={socks} title={"Custom"}
-                                                         small={socks.length > 9}
-                                                         isSelected={collectionSelectedIndex === -1}/>
-                                <div className={"flex justify-center my-2"}>
-                                    <Link to={"/socks-collection-edit"}>
-                                        <button className={"button-primary"}>Click to edit</button>
-                                    </Link>
+                            {
+                                (!isTutorialActivated() || getProgressFromMemory() > 20) &&
+                                <div onClick={() => setCollectionSelectedIndex(-1)}>
+                                    <SockCollectionComponent socks={socks} title={"Custom"}
+                                                             small={socks.length > 9}
+                                                             isSelected={collectionSelectedIndex === -1}/>
+                                    <div className={"flex justify-center my-2"}>
+                                        <Link to={"/socks-collection-edit"}>
+                                            <button className={"button-primary"}>Click to edit</button>
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -57,7 +73,12 @@ export default function SocksPairing() {//todo add parameters to robots
                         <div className={"title"}>Choose Algorithm</div>
                         <div className={"flex justify-center"}>
                             {
-                                robots.map((r, i) => (
+                                robots.filter(((value, index) => {
+                                    if (!isTutorialActivated()) return true
+                                    if (index > 0 && getProgressFromMemory() < 10) return false
+                                    if (index > 1 && getProgressFromMemory() < 15) return false
+                                    return true
+                                })).map((r, i) => (
                                     <div key={i}
                                          className={"mx-2 p-2 border-2 border-grey rounded " + (robotSelected === i ? "shadow-selected" : "shadow-unselected")}
                                          onClick={() => setRobotSelected(i)}>
@@ -101,14 +122,14 @@ export default function SocksPairing() {//todo add parameters to robots
 
             <div className={"flex justify-center"}>
                 <button className={"button-primary"} disabled={robotSelected === -1 || collectionSelectedIndex === -2}
-                        onClick={() => navigate(`/socks-pairing-algorithm/${robotSelected}`)}>Execute
+                        onClick={handleExecuteClick}>Execute
                 </button>
 
             </div>
         </div>
 
 
-        <Tutorial />
+        <Tutorial/>
 
     </div>
 }

@@ -30,10 +30,13 @@ export const STEP_PREDICTION = "STEP_PREDICTION"
 
 export const tutorialSteps = [
     {type:STEP_MULTIPLE_TEXT, texts: [0,1]},
-    {type: STEP_WAIT},
+    {type:STEP_WAIT, time:2500},
     {type:STEP_MULTIPLE_TEXT, texts: [2,3,4]},
-    {type:STEP_ONE_TEXT, text: 4},
-    {type:STEP_QUESTION, texts: 5},
+    {type:STEP_NOTHING},
+    {type:STEP_WAIT, time: 1000},
+    {type:STEP_MULTIPLE_TEXT, texts: [6, 7]},
+    {type:STEP_QUESTION, text: 5},
+
 ]
 
 
@@ -59,7 +62,7 @@ export function getTutorialStep(progress) {
                 smallStep += 1
                 break;
             case STEP_WAIT:
-                if (progress === smallStep) return {type: STEP_WAIT, text: null}
+                if (progress === smallStep) return {type: STEP_WAIT, text: null, time:tutorialSteps[step].time || 3000}
                 smallStep += 1
                 break;
             case STEP_NOTHING:
@@ -67,21 +70,16 @@ export function getTutorialStep(progress) {
                 smallStep+=1;
                 break;
             case STEP_QUESTION:
-                if (progress === smallStep) return {type: STEP_QUESTION, text: tutorialTexts[tutorialSteps[step].texts]}
+                if (progress === smallStep) return {type: STEP_QUESTION, text: tutorialTexts[tutorialSteps[step].text]}
                 smallStep += 1
                 break;
             default:
                 return {type: STEP_NOTHING, text: null}
         }
 
-        // if(step+1 === tutorialSteps.length ||  (progress === smallStep && tutorialSteps[step+1].type !== STEP_WAIT)) {
-        //     console.log("en attente de progres")
-        //     return {type: null, text: null}
-        // }
-
     }
 
 
-    return {type: null, text: null}
+    return {type: STEP_NOTHING, text: null}
 
 }

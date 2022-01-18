@@ -1,9 +1,15 @@
 export function getProgressFromMemory() {//todo use a reducer
-    return localStorage.getItem("progress") || 0
+    return parseInt(localStorage.getItem("progress") || 0)
 }
 
 export function setProgressInMemory(progress) {
     localStorage.setItem("progress", progress)
+}
+
+export function incrementProgressInMemory() {
+    if(isTutorialActivated()) {
+        setProgressInMemory(getProgressFromMemory() + 1)
+    }
 }
 
 export function activateTutorial() {

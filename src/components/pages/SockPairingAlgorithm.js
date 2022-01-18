@@ -6,6 +6,7 @@ import robots from "../../ressources/robots";
 import {ForwardIcon, PauseIcon, PlayIcon, RewindIcon} from "../components/AlgorithmIcons";
 import SimpleDivideAndSweepAlgo from "../utils/algo/class/algorithms/SimpleDivideAndSweepAlgo";
 import DivideAndSweepAlgo from "../utils/algo/class/algorithms/DivideAndSweepAlgo";
+import Tutorial from "../components/Tutorial";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
@@ -119,6 +120,7 @@ export default function SockPairingAlgorithm() {
                 </div>
 
             </div>
+            <Tutorial/>
         </div>
     )
 }

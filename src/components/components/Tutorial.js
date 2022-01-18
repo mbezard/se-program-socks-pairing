@@ -28,7 +28,7 @@ export default function Tutorial() {
             setIsShown(false)
             setTimeout(() => {
                 incrementProgress()
-            }, 3000)
+            }, tutorialStep.time || 3000)
         } else {
             setIsShown(true)
         }
