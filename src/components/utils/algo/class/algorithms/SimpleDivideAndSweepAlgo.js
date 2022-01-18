@@ -1,7 +1,7 @@
 import Algo from "./Algo";
 import Board from "../Board";
 import ExecState from "../ExecState";
-import ExecAction, {ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
+import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
 
 export default class SimpleDivideAndSweepAlgo extends Algo {
     /*
@@ -22,18 +22,19 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
         board.initialCollection.sort((a, b) => 0.5 - Math.random());//shuffle
         const state = new ExecState(board)
         this.states.push(state)
-        const nbOfSocks = board.initialCollection.length
 
-        console.log("at start:", board)
         //divide & sweep
         const divide = (board) => {
             board.addEmptyRow()
             while (board.initialCollection.length !== 0) {
-                const sock = board.initialCollection.pop()
+                const sock = board.initialCollection[board.initialCollection.length - 1]
                 let hasFoundBox = false
                 for (let i = 0; i < board[0].length; i++) {
-                    if (board[0][i][0].isSameAs(sock)) {//todo add in the states and actions
+                    this.states.push(new ExecState(board, [[0,i], [-1, board.initialCollection.length - 1]]))
+                    this.actions.push(new ExecAction(ACTION_COMPARISON, [sock, board[0][i][0]], "", ""))
+                    if (board[0][i][0].isSameAs(sock)) {
                         board[0][i].push(sock)
+                        board.initialCollection.pop()
                         this.states.push(new ExecState(board))
                         this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, i]))
                         hasFoundBox = true
@@ -42,9 +43,11 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                 }
                 if (!hasFoundBox) {
                     board[0].push([sock])
+                    board.initialCollection.pop()
                     this.states.push(new ExecState(board))
                     this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, board[0].length-1]))
                 }
+
             }
 
         }

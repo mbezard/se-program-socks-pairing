@@ -34,14 +34,15 @@ export default class DivideAndSweepAlgo extends Algo {
             let box = step === 0 ? board.initialCollection : board[step - 1][boxIndex]
             console.log("box", box)
             while (box.length !== 0) {
-                const sock = box.pop()
+                const sock = box[box.length - 1]
                 let hasFoundBox = false
                 for (let i = 0; i < board[step].length; i++) {
                     //simple comparison
-                    this.states.push(new ExecState(board))
+                    this.states.push(new ExecState(board, [[step, i], [step === 0 ? -1 : step - 1, box.length - 1]]))
                     this.actions.push(new ExecAction(ACTION_COMPARISON_SIMPLE, [board[step][i][0], sock], "", "", Object.keys(paramDict)[step]))
                     if (board[step][i][0].hasSameFeature(sock, Object.keys(paramDict)[step])) {//same car
                         board[step][i].push(sock)
+                        box.pop()
                         this.states.push(new ExecState(board))
                         this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, i]))
                         hasFoundBox = true
@@ -50,6 +51,7 @@ export default class DivideAndSweepAlgo extends Algo {
                 }
                 if (!hasFoundBox) {
                     board[step].push([sock])
+                    box.pop()
                     this.states.push(new ExecState(board))
                     this.actions.push(new ExecAction(ACTION_MOVE, [sock], "initial box", [0, board[0].length]))
                 }
@@ -62,7 +64,7 @@ export default class DivideAndSweepAlgo extends Algo {
             board[step].forEach((box, index) => {
                 let areAllSame = true
                 for (let i = 0; i < box.length - 1; i++) {
-                    this.states.push(new ExecState(board))
+                    this.states.push(new ExecState(board, [[step, index]]))
                     this.actions.push(new ExecAction(ACTION_COMPARISON, [box[i], box[i + 1]], "", ""))
                     if (!box[i].isSameAs(box[i + 1])) {
                         areAllSame = false
