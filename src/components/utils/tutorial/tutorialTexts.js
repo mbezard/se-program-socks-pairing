@@ -24,10 +24,19 @@ const tutorialTexts = [
         We don't have much choice right now, so choose the basic collection and the yellow bot
     </>,
     <>
-        You can see the modus operandi of a bot by clicking the <div className={"button-primary"}>Details</div> button
+        <div className={"my-3"}>
+            You can see the modus operandi of a bot by clicking the <span
+            className={"button-primary"}>Details</span> button
+        </div>
         <br/>
-        When you are ready, click on <div className={"button-primary"}>Execute</div> at the bottom of the screen
-    </>
+        <div className={"mb-3"}>
+            When you are ready, click on <span className={"button-primary"}>Execute</span> at the bottom of the screen
+        </div>
+    </>,
+    {
+        question: <>It's time to make prediction. <br/>How many comparisons between 2 socks will there be?</>,
+        answers: ["0-1", "2-4", "4-6"]
+    },
 ]
 
 export default tutorialTexts;

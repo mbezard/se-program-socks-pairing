@@ -1,4 +1,3 @@
-import React from "react";
 import {getProgressFromMemory} from "./Progress";
 import tutorialTexts from "./tutorialTexts";
 
@@ -34,6 +33,7 @@ export const tutorialSteps = [
     {type: STEP_WAIT},
     {type:STEP_MULTIPLE_TEXT, texts: [2,3,4]},
     {type:STEP_ONE_TEXT, text: 4},
+    {type:STEP_QUESTION, texts: 5},
 ]
 
 
@@ -53,7 +53,7 @@ export function getTutorialStep(progress) {
                 smallStep += tutorialSteps[step].texts.length
                 break;
             case STEP_ONE_TEXT:
-                if (progress === smallStep + 1) {
+                if (progress === smallStep) {
                     return {type: STEP_ONE_TEXT, text:tutorialTexts[tutorialSteps[step].text]}
                 }
                 smallStep += 1
@@ -65,6 +65,10 @@ export function getTutorialStep(progress) {
             case STEP_NOTHING:
                 if(progress === smallStep) return {type: STEP_NOTHING, text: null}
                 smallStep+=1;
+                break;
+            case STEP_QUESTION:
+                if (progress === smallStep) return {type: STEP_QUESTION, text: tutorialTexts[tutorialSteps[step].texts]}
+                smallStep += 1
                 break;
             default:
                 return {type: STEP_NOTHING, text: null}
