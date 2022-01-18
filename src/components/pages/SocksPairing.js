@@ -32,11 +32,13 @@ export default function SocksPairing() {//todo add parameters to robots
                             {defaultSockCollections.map((col, i) => (
                                 <div key={i} onClick={() => setCollectionSelectedIndex(i)}>
                                     <SockCollectionComponent socks={col.socks} title={col.title}
+                                                             small={col.socks.length > 9}
                                                              isSelected={collectionSelectedIndex === i}/>
                                 </div>
                             ))}
                             <div onClick={() => setCollectionSelectedIndex(-1)}>
                                 <SockCollectionComponent socks={socks} title={"Custom"}
+                                                         small={socks.length > 9}
                                                          isSelected={collectionSelectedIndex === -1}/>
                                 <div className={"flex justify-center my-2"}>
                                     <Link to={"/socks-collection-edit"}>
