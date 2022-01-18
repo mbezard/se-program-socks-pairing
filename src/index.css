@@ -3,27 +3,44 @@
 @tailwind utilities;
 
 @layer components {
-    body{
+    body {
         @apply bg-greyLight-1;
     }
 
     .button-primary {
         @apply bg-primary text-white rounded px-4 py-3 text-center cursor-pointer
     }
+
     .button-primary:hover {
         opacity: 0.85;
     }
 
     .shadow-unselected {
-        box-shadow:  inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem white;
+        box-shadow: inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem white;
     }
 
     .shadow-selected {
-       box-shadow: rgb(200 208 231) 0.8rem 0.8rem 0.8rem, white -0.4rem -0.4rem 0.9rem;
+        box-shadow: rgb(200 208 231) 0.8rem 0.8rem 0.8rem, white -0.4rem -0.4rem 0.9rem;
     }
 
     .title {
         @apply uppercase m-5 font-bold
+    }
+
+    .glowing {
+        animation: glow-anim 1.5s infinite linear;
+    }
+
+    @keyframes glow-anim {
+        0% {
+            transform: scale(1.1);
+        }
+        50% {
+            transform: scale(1.3);
+        }
+        100%{
+            transform: scale(1.1);
+        }
     }
 
 }

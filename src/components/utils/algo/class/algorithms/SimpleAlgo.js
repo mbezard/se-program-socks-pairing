@@ -34,7 +34,7 @@ export default class SimpleAlgo extends Algo{
 
             for (let i=0; i<board.initialCollection.length;i++) {//we look for a match inside initial collection
                 let sock2 = board.initialCollection[i]
-                this.states.push(new ExecState(board))
+                this.states.push(new ExecState(board, [[0,0], [-1, i]]))
                 this.actions.push(new ExecAction(ACTION_COMPARISON, [sock, sock2], "", "initial box"))
                 if(sock2.isSameAs(sock)) {
                     board.initialCollection.splice(i, 1)

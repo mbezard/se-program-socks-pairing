@@ -59,9 +59,9 @@ export default function SocksPairing() {//todo add parameters to robots
                                     <div key={i}
                                          className={"mx-2 p-2 border-2 border-grey rounded " + (robotSelected === i ? "shadow-selected" : "shadow-unselected")}
                                          onClick={() => setRobotSelected(i)}>
-                                        <img src={r} alt="robot" className={"h-20"}/>
+                                        <img src={r} alt="robot" className={"h-20 m-auto"}/>
                                         <div className={"flex justify-center my-4"}>
-                                            <div className={`-ml-3 border-l-8 h-80 border-${robotColors[i]}-400`}/>
+                                            <div className={`border-l-8 h-80 border-${robotColors[i]}-400`}/>
                                         </div>
                                         <div>
                                             <div className={"button-primary"}

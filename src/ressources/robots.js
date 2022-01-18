@@ -11,6 +11,14 @@ export const robotNames = ["yellow", "green", "blue"]
 
 export const robotDescription = ["Simple, human algorithm", "Simple Divide & Sweep", "Dive & Sweep"]
 
-export const robotAlgorithm = ["1 Do something", "1 Do something", "1 Do something"]
+export const robotAlgorithm = [
+    <>
+        1 Repeat until there is no more sock in the pile:
+        <br/>2    Pick a sock from the pile
+        <br/>3    Find its match in the pile
+        <br/>4    Put it aside
+    </>,
+    "1 Do something",
+    "1 Do something"]
 
 

@@ -29,11 +29,15 @@ export default function SockPairingAlgorithm() {
     }
 
     useEffect(() => {
-        const [tempStates, tempActions] = algo?.generateStatesAndActions(collection)
-        setStates(tempStates)
-        setActions(tempActions)
-        forceUpdate()
-    }, [algoIndex])
+        if (actions.length === 0 && states.length === 0) {
+            const [tempStates, tempActions] = algo?.generateStatesAndActions(collection)
+            setStates(tempStates)
+            setActions(tempActions)
+            forceUpdate()
+            console.log("states: ", tempStates)
+            console.log("actions: ", tempActions)
+        }
+    }, [actions.length, algo, algoIndex, collection, forceUpdate, states.length])
 
     useEffect(() => {
         if (isPlaying === true) {
@@ -43,15 +47,19 @@ export default function SockPairingAlgorithm() {
             // console.log("stop")
             clearInterval(playInterval)
         }
-    }, [isPlaying])
+    }, [isPlaying, playInterval])
+
+    let endOfLog;
+    useEffect(() => {
+        endOfLog.scrollIntoView();
+    }, [endOfLog, step])
 
     if (states.length > 0 && step >= states.length) {
         clearInterval(playInterval)
         setStep(states.length - 1)
     }
 
-    console.log("states: ", states)
-    console.log("actions: ", actions)
+
 
     return (
         <div className={"h-screen flex content-center bg-greyLight-1"}>
@@ -64,7 +72,8 @@ export default function SockPairingAlgorithm() {
                         <div className={"my-4 w-full text-center"}>
                             Analytics
                             <br/>
-                            Number of comparisons: {actions.filter(value => value.category.includes("COMPARISON")).length}
+                            Number of
+                            comparisons: {actions.filter(value => value.category.includes("COMPARISON")).length}
                             <br/>
                             Number of moves: {actions.filter(value => value.category.includes("MOVE")).length}
                         </div>
@@ -82,6 +91,7 @@ export default function SockPairingAlgorithm() {
                                 <div key={i} className={"text-white my-3"}>{action.getLogText()}</div>
                             )
                         )}
+                        <div ref={(el) => endOfLog = el} />
                     </div>
 
                     <div className={"flex justify-center"} style={{width: "20rem", height: "5rem"}}>

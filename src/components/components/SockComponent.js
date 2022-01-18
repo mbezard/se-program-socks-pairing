@@ -8,8 +8,14 @@ export default function SockComponent({
                                  width = 100,
                                  ...props
                              }) {
+    let glowing = false
+    if(props?.glowing) {
+        glowing = true
+    }
+    delete props.glowing;
+    // console.log("GLOWING : ", glowing)
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height={height} width={width} {...props} >
+        <svg className={"rounded" + (glowing ? " glowing" : "")} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height={height} width={width} {...props} >
             <g data-name="filled outline">
                 {/*<path fill="#ebebeb"*/}
                 {/*      d="M328,72V344h-.02a63.917,63.917,0,0,1-25.86,50.4L192.87,475.41a64.006,64.006,0,0,1-89.53-13.29v-.01a63.994,63.994,0,0,1,13.29-89.52l68.62-50.89V72Z"/>*/}

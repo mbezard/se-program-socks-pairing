@@ -2,7 +2,8 @@ import Sock from "./Sock";
 import Board from "./Board";
 
 export default class ExecState {
-    constructor(board = null) {
+    constructor(board = null, glowingSockCoord = []) {
+        this.glowingSockCoord = glowingSockCoord
         if (board != null) {
             // console.log("state receiving board (after parse)", JSON.parse(JSON.stringify(board.finalCollection)))
 
@@ -39,31 +40,44 @@ export default class ExecState {
     }
 
     board = new Board()
+    glowingSockCoord = []
 
     getNumberOfRows = () => this.board.length
     getNumberOfColumns = () => Math.max(this.board.map(row => row.length))
 
-    //todo trop de boites depasse de l'ecran
-    getHtml = () => {//todo print l'étape de l'algo (si y en a une)
+    isGlowing(row, col) {
+        return this.glowingSockCoord.some(value => value[0] === row && value[1] === col);
+    }
+
+
+    getHtml = (stepTitle = null) => {//todo print l'étape de l'algo (si y en a une)
         return (
             <div className={"flex flex-col"}>
                 <div className={"w-full h-24 mb-6"}>
-                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex"}>
-                        {this.board.initialCollection.map((sock, i) => sock.getComponent({height: 50, width: 50}, i))}
+                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex pt-2"}>
+                        {this.board.initialCollection.map((sock, i) => sock.getComponent({
+                            height: 50,
+                            width: 50,
+                            glowing: this.isGlowing(-1, i)
+                        }, i))}
                     </div>
                 </div>
                 <div>
                     {this.board.map((row, i) => (
-                        <div className={"flex justify-center flex-wrap border-t-2 border-b-2 border-black mx-8 py-2"} key={i}>
+                        <div className={"flex justify-center flex-wrap border-t-2 border-b-2 border-black mx-8 py-2"}
+                             key={i}>
                             {row.map((boxOrSocks, j) => (
                                 <div key={j}
-                                     className={"flex inline-flex justify-center border-4 border-gray-700 bg-gray-400 whitespace-nowrap mb-3 mx-5"}
+                                     className={"flex inline-flex justify-center pt-2 border-4 border-gray-700 bg-gray-400 whitespace-nowrap mb-3 mx-5"}
                                      style={{minWidth: "8rem", minHeight: "6rem"}}>
                                     {
                                         (boxOrSocks.length !== 0 && (boxOrSocks[0] instanceof Sock)) ?
-                                            boxOrSocks.map((sock, k) => sock.getComponent({width: 50, height: 50}, k))
-                                            :
-                                            "empty"
+                                            boxOrSocks.map((sock, k) => sock.getComponent({
+                                                width: 50,
+                                                height: 50,
+                                                glowing: this.isGlowing(i, j)
+                                            }, k))
+                                            : "empty"
                                     }
                                 </div>
                             ))}
@@ -71,7 +85,7 @@ export default class ExecState {
                     ))}
                 </div>
                 <div className={"w-full h-24 mt-6"}>
-                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex"}>
+                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex pt-2"}>
                         {this.board.finalCollection.map((pair, i) => (
                             <div key={i} className={"inline-flex"} style={{minWidth: "4rem"}}>
                                 <div>

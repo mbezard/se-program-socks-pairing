@@ -99,8 +99,9 @@ export default class DivideAndSweepAlgo extends Algo {
         let isAllPaired = sweep(board, step)
         console.log("after sweep ", board)
 
-        console.log("isAllpaire", isAllPaired)
-        while (!isAllPaired) {
+        console.log("isAllpaired", isAllPaired)
+        let counter = 0;
+        while (!isAllPaired && counter <= Object.keys(paramDict).length) {
             step++
             board.addEmptyRow()
             console.log("start", step, board)
@@ -113,6 +114,7 @@ export default class DivideAndSweepAlgo extends Algo {
             }
             console.log("before sweep", board)
             isAllPaired = sweep(board, step)
+            counter++;
         }
 
 
