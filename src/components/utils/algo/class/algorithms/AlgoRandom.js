@@ -18,7 +18,7 @@ export default class AlgoRandom extends Algo {
         this.states.push(state)
 
         let counter = 0
-        while (board.initialCollection.length !== 0 || counter>250) {
+        while (board.initialCollection.length !== 0 && counter < 250) {
             const sock1 = board.initialCollection.splice(Math.floor(Math.random() * board.initialCollection.length), 1)[0]
             const sock2 = board.initialCollection.splice(Math.floor(Math.random() * board.initialCollection.length), 1)[0]
 
