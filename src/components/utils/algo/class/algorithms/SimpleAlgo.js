@@ -2,7 +2,8 @@ import ExecState from "../ExecState";
 import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
 import Algo from "./Algo";
 import Board from "../Board";
-import {isTutorialActivated} from "../../../tutorial/Progress";
+import {getProgressFromMemory, isTutorialActivated} from "../../../tutorial/Progress";
+import {shuffleBoard} from "../../../utilsFunctions";
 
 export default class SimpleAlgo extends Algo {
     /*
@@ -18,16 +19,7 @@ export default class SimpleAlgo extends Algo {
         this.actions = []
 
         let board = new Board([], socks)
-        if (isTutorialActivated() && board.initialCollection.length === 4) {
-            board.initialCollection = [
-                board.initialCollection[0],
-                board.initialCollection[2],
-                board.initialCollection[1],
-                board.initialCollection[3],
-            ]
-        } else {
-            board.initialCollection.sort((a, b) => 0.5 - Math.random());//shuffle
-        }
+        shuffleBoard(board)
         const state = new ExecState(board)
         this.states.push(state)
 

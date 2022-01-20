@@ -1,7 +1,13 @@
 import {useEffect, useState} from "react";
 import WiseBotIcon from "../../ressources/WisebotIcon";
-import {getProgressFromMemory, isTutorialActivated, setProgressInMemory} from "../utils/tutorial/Progress";
+import {
+    getProgressFromMemory,
+    incrementProgressInMemory,
+    isTutorialActivated,
+    setProgressInMemory
+} from "../utils/tutorial/Progress";
 import {getTutorialStep, STEP_NOTHING, STEP_QUESTION, STEP_RESPONSE, STEP_WAIT} from "../utils/tutorial/tutorialStory";
+import {useNavigate} from "react-router-dom";
 
 export default function Tutorial({...props}) {
     const isTutorialActive = isTutorialActivated()
@@ -10,9 +16,10 @@ export default function Tutorial({...props}) {
     const incrementProgress = () => setProgress(prev => prev + 1)
     const [isShown, setIsShown] = useState(false)
     const [answer, setAnswer] = useState({answerId: -1, answerText: "", correctAnswerText: "", correctAnswerIndex: -2})
+    const navigate = useNavigate()
 
     const onClose = (force = false) => {
-        console.log("onclose")
+        console.log("onclose", force, tutorialStep.type)
         if(tutorialStep.type === STEP_QUESTION && !force) return;
         incrementProgress()
     }
@@ -26,6 +33,7 @@ export default function Tutorial({...props}) {
         if (tutorialStep.type == null || tutorialStep.type === STEP_NOTHING) {
             setIsShown(false)
         } else if (tutorialStep.type === STEP_QUESTION) {
+            setIsShown(true)
             setAnswer(prevState => ({
                 ...prevState,
                 correctAnswerIndex: tutorialStep.text.correctAnswerIndex,
@@ -42,9 +50,18 @@ export default function Tutorial({...props}) {
     }, [tutorialStep])
 
     useEffect(() => {
-        if(getProgressFromMemory() !== progress) setProgress(getProgressFromMemory())
-    }, [progress, props])
+        if(getProgressFromMemory() !== progress) {
+            setProgress(getProgressFromMemory())
+            console.log(getProgressFromMemory(), getProgressFromMemory()===16)
+        }
+    }, [navigate, progress, props])
 
+    if(getProgressFromMemory() === 16 || getProgressFromMemory() === 25) {
+        navigate("/socks-pairing");
+        incrementProgressInMemory()
+        incrementProgress()
+    }
+    // console.log(tutorialStep, isShown, isTutorialActive)
 
     return (<>
         {isTutorialActive && isShown && <div className={"overflow-hidden fixed max-h-full max-w-full z-40 inset-0"}>
@@ -60,18 +77,19 @@ export default function Tutorial({...props}) {
                         {tutorialStep?.type && tutorialStep?.type?.includes("TEXT") && tutorialStep?.text}
                         {tutorialStep?.type && tutorialStep?.type?.includes("QUESTION") && tutorialStep?.text.question}
                         {tutorialStep?.type === STEP_RESPONSE && <div>
+                            <div className={"mb-1"}>{tutorialStep.text}</div>
                             <span>
                                 Your prediction was
                                 <span className={"font-bold"}>{answer.answerText}</span>
-                                and the correct anser was
+                                and the correct answer was
                                 <span className={"font-bold"}>{answer.correctAnswerText}</span>
                             </span>
                             <br/>
                             {
                                 answer.answerId === answer.correctAnswerIndex ?
-                                    <div className={"bg-green-700"}>Congratulations, you found the correct answer</div>
+                                    <div className={"text-green-700 mt-1"}>Congratulations, you found the correct answer</div>
                                     :
-                                    <div className={"bg-red-500"}>Oh no! You didn't find the correct answer</div>
+                                    <div className={"text-red-500 mt-1"}>Oh no! You didn't find the correct answer</div>
                             }
                         </div>}
                     </div>
@@ -101,7 +119,7 @@ export default function Tutorial({...props}) {
             </div>
 
 
-            <div onClick={onClose} className="opacity-25 fixed inset-0 z-40 bg-black"/>
+            <div onClick={() => onClose(false)} className="opacity-25 fixed inset-0 z-40 bg-black"/>
 
         </div>}
 

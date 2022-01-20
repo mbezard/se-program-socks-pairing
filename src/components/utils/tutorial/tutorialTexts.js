@@ -1,5 +1,6 @@
 import React from "react";
 import {ForwardIcon, PlayIcon, RewindIcon} from "../../components/AlgorithmIcons";
+import {incrementProgressInMemory} from "./Progress";
 
 const tutorialTexts = [
     <>
@@ -65,6 +66,29 @@ const tutorialTexts = [
     </>,
     <>
         Let's check if your prediction was correct:
+    </>,
+    <>
+        Now let's see how this algorithm performs on larger sock piles
+        <br/>
+        Go back to the selection menu
+    </>,
+    <>
+        Select the bigger collection and the yellow bot
+    </>,
+    {//this is step 12
+        question: <>Let's do another prediction. <br/>How many comparisons will there be?</>,
+        answers: ["1-5", "6-10", "11-15", "16-20"],
+        correctAnswerIndex: 2
+    },
+    <>
+        The basic algorithm makes 2x more comparisons on this pile!!!
+        <br/> And it's even worst on bigger piles :(
+    </>,
+    <>
+        Let's try an other algorithm
+    </>,
+    <>
+        Now, select the <span className={"text-green-300"}>green bot</span> and the <b>medium</b> collection
     </>
 
 ]

@@ -23,11 +23,14 @@ export default function SocksPairing() {//todo add parameters to robots
     }, [collectionSelectedIndex, socks])
 
     const handleExecuteClick = () => {
-        if (isTutorialActivated() && getProgressFromMemory() === 6) {
+        if (isTutorialActivated() &&
+            (getProgressFromMemory() === 6
+                || getProgressFromMemory() === 18
+                || getProgressFromMemory() === 27
+            )) {
             incrementProgressInMemory()
         }
         navigate(`/socks-pairing-algorithm/${robotSelected}`)
-
     }
 
     return <div className={"h-screen flex content-center bg-greyLight-1"}>
@@ -40,7 +43,7 @@ export default function SocksPairing() {//todo add parameters to robots
                             {defaultSockCollections.filter(((value, index) => {
                                 if (!isTutorialActivated()) return true
                                 if (index > 0 && getProgressFromMemory() < 10) return false
-                                if (index > 1 && getProgressFromMemory() < 15) return false
+                                if (index > 1 && getProgressFromMemory() < 30) return false
                                 return true
                             })).map((col, i) => (
                                 <div key={i} onClick={() => setCollectionSelectedIndex(i)}>
@@ -51,7 +54,7 @@ export default function SocksPairing() {//todo add parameters to robots
                             ))}
                             <div className={"mx-4"}/>
                             {
-                                (!isTutorialActivated() || getProgressFromMemory() > 20) &&
+                                (!isTutorialActivated() || getProgressFromMemory() > 30) &&
                                 <div onClick={() => setCollectionSelectedIndex(-1)}>
                                     <SockCollectionComponent socks={socks} title={"Custom"}
                                                              small={socks.length > 9}
@@ -76,8 +79,8 @@ export default function SocksPairing() {//todo add parameters to robots
                             {
                                 robots.filter(((value, index) => {
                                     if (!isTutorialActivated()) return true
-                                    if (index > 0 && getProgressFromMemory() < 10) return false
-                                    if (index > 1 && getProgressFromMemory() < 15) return false
+                                    if (index > 0 && getProgressFromMemory() < 20) return false
+                                    if (index > 1 && getProgressFromMemory() < 30) return false
                                     return true
                                 })).map((r, i) => (
                                     <div key={i}
