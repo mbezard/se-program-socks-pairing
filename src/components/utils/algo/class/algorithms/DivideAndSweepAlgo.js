@@ -37,6 +37,16 @@ export default class DivideAndSweepAlgo extends Algo {
                 const sock = box[box.length - 1]
                 let hasFoundBox = false
                 for (let i = 0; i < board[step].length; i++) {
+                    //this is bad and should be changed
+                    let boxShouldNotBeCompared = false
+                    for(let j=0; j<Math.min(step, Object.keys(paramDict).length); j++) {
+                        if(!board[step][i][0].hasSameFeature(sock, Object.keys(paramDict)[j])) {
+                            boxShouldNotBeCompared = true
+                            break;
+                        }
+                    }
+                    if(boxShouldNotBeCompared) continue;
+
                     //simple comparison
                     this.states.push(new ExecState(board, [[step, i], [step === 0 ? -1 : step - 1, box.length - 1]]))
                     this.actions.push(new ExecAction(ACTION_COMPARISON_SIMPLE, [board[step][i][0], sock], "", "", Object.keys(paramDict)[step]))
