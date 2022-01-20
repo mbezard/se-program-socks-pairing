@@ -52,7 +52,13 @@ export const tutorialSteps = [
     {type: STEP_NOTHING},
     {type: STEP_ONE_TEXT, text: 15},
     {type: STEP_NOTHING},
-    {type: STEP_QUESTION, text: 12},
+    {type: STEP_QUESTION, text: 16},
+    {type: STEP_NOTHING},
+    {type: STEP_WAIT, time: 1500},
+    {type: STEP_RESPONSE, text: 9},
+    {type: STEP_MULTIPLE_TEXT, texts: [17, 18]},
+    {type: STEP_NOTHING},
+    {type: STEP_ONE_TEXT, text: 19},
 
 ]
 

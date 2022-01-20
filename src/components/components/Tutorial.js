@@ -56,7 +56,7 @@ export default function Tutorial({...props}) {
         }
     }, [navigate, progress, props])
 
-    if(getProgressFromMemory() === 16 || getProgressFromMemory() === 25) {
+    if(getProgressFromMemory() === 16 || getProgressFromMemory() === 25 || getProgressFromMemory() === 34) {
         navigate("/socks-pairing");
         incrementProgressInMemory()
         incrementProgress()
@@ -80,9 +80,9 @@ export default function Tutorial({...props}) {
                             <div className={"mb-1"}>{tutorialStep.text}</div>
                             <span>
                                 Your prediction was
-                                <span className={"font-bold"}>{answer.answerText}</span>
+                                <span className={"font-bold"}> {answer.answerText} </span>
                                 and the correct answer was
-                                <span className={"font-bold"}>{answer.correctAnswerText}</span>
+                                <span className={"font-bold"}> {answer.correctAnswerText} </span>
                             </span>
                             <br/>
                             {

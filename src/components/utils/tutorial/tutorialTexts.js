@@ -89,6 +89,32 @@ const tutorialTexts = [
     </>,
     <>
         Now, select the <span className={"text-green-300"}>green bot</span> and the <b>medium</b> collection
+    </>,
+    {
+        question: <>Let's do another prediction. <br/>How many comparisons will there be?</>,
+        answers: ["1-5", "6-10", "11-15", "16-20"],
+        correctAnswerIndex: 1
+    },
+    <>
+        This is slightly better than the
+        <span className={"text-yellow-400"}> yellow bot</span>.
+        <br/>
+        And this tendency is confirmed with even bigger sock piles.
+    </>,
+    <>
+        At last, let's get back to the selection menu to end this tutorial
+    </>,
+    <>
+        Here you are! All the remaining sock
+        <b> piles</b> and <b>algorithms </b>
+        are unlocked.
+        <br/>
+        You can play around with them!
+        <br/><br/>
+        There is also the customizable sock pile that you can edit yourself
+        to mess up wth the robots :)
+        <br/>
+        Good bye!
     </>
 
 ]

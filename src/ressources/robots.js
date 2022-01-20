@@ -9,7 +9,7 @@ export const robotColors = ["yellow", "green", "blue"]
 
 export const robotNames = ["yellow", "green", "blue"]
 
-export const robotDescription = ["Simple, human algorithm", "Simple Divide & Sweep", "Dive & Sweep"]
+export const robotDescription = ["Simple human algorithm", "Put Aside", "Divide & Match"]
 
 export const robotAlgorithm = [
     <>

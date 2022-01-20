@@ -7,7 +7,7 @@ export function toStandardCase(s = "") {
 }
 
 export function shuffleBoard(board) {
-    if (isTutorialActivated()) {
+    if (isTutorialActivated() && getProgressFromMemory() < 35) {
         if(board.initialCollection.length === 4 && getProgressFromMemory() < 20) {
             board.initialCollection = [
                 board.initialCollection[0],
