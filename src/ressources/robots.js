@@ -18,7 +18,20 @@ export const robotAlgorithm = [
         <br/>3    Find its match in the pile
         <br/>4    Put it aside
     </>,
-    "1 Do something",
-    "1 Do something"]
+    <>
+        1 Pick a sock and put it in a box
+        <br/>2 Repeat for all other socks:
+        <br/>3    Pick a sock
+        <br/>4    If it match a sock in one of the box:
+        <br/>5        Match it and put it in the final pile
+    </>,
+    <>
+        1 Repeat for each criteria (color, pattern, ...):
+        <br/>2    Divide all socks by criteria into boxes
+        <br/>3    If all socks in a box are identical:
+        <br/>4        Make pairs from that box to the final pile:
+        <br/>5    If all boxes are empty:
+        <br/>6        Stop the algorithm:
+    </>]
 
 
