@@ -1,6 +1,5 @@
 import React from "react";
 import {ForwardIcon, PlayIcon, RewindIcon} from "../../components/AlgorithmIcons";
-import {incrementProgressInMemory} from "./Progress";
 
 const tutorialTexts = [
     <>

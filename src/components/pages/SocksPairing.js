@@ -88,7 +88,8 @@ export default function SocksPairing() {//todo add parameters to robots
                                          onClick={() => setRobotSelected(i)}>
                                         <img src={r} alt="robot" className={"h-20 m-auto"}/>
                                         <div className={"flex justify-center my-4"}>
-                                            <div className={`border-l-8 h-80 border-${robotColors[i]}-400`}/>
+                                            <div
+                                                className={`border-l-8 h-80 ${robotColors[i] === "yellow" ? "border-yellow-400" : (robotColors[i] === "green" ? "border-green-400" : "border-blue-400")}`}/>
                                         </div>
                                         <div>
                                             <div className={"button-primary"}

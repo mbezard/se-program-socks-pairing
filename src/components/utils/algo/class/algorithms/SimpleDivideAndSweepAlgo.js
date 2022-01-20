@@ -2,7 +2,6 @@ import Algo from "./Algo";
 import Board from "../Board";
 import ExecState from "../ExecState";
 import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
-import {isTutorialActivated} from "../../../tutorial/Progress";
 import {shuffleBoard} from "../../../utilsFunctions";
 
 export default class SimpleDivideAndSweepAlgo extends Algo {

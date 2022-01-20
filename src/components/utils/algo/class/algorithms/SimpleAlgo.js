@@ -2,7 +2,6 @@ import ExecState from "../ExecState";
 import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
 import Algo from "./Algo";
 import Board from "../Board";
-import {getProgressFromMemory, isTutorialActivated} from "../../../tutorial/Progress";
 import {shuffleBoard} from "../../../utilsFunctions";
 
 export default class SimpleAlgo extends Algo {
