@@ -2,7 +2,7 @@ import Algo from "./Algo";
 import Board from "../Board";
 import {shuffleBoard} from "../../../utilsFunctions";
 import ExecState from "../ExecState";
-import ExecAction, {ACTION_COMPARISON, ACTION_MOVE, ACTION_MOVE_PAIR} from "../ExecAction";
+import ExecAction, {ACTION_COMPARISON, ACTION_MOVE_PAIR} from "../ExecAction";
 
 export default class AlgoRandom extends Algo {
     states = []
