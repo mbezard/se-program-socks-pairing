@@ -13,7 +13,7 @@ export default function SockComponent({
         glowing = true
     }
     delete props.glowing;
-    
+
     return (
         <svg className={"rounded" + (glowing ? " glowing" : "")} xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 512 512" height={height} width={width} {...props} >
@@ -49,7 +49,7 @@ export default function SockComponent({
                 }
 
                 {
-                    (pattern === "triangles") &&
+                    (pattern === "heart") &&
                     <>
                         <path transform={"rotate(225 220 230)"} fill={patternColor}
                             d="M160 270 v-50 h50

@@ -49,6 +49,7 @@ export default function SocksPairing() {//todo add parameters to robots
                                                              isSelected={collectionSelectedIndex === i}/>
                                 </div>
                             ))}
+                            <div className={"mx-4"}/>
                             {
                                 (!isTutorialActivated() || getProgressFromMemory() > 20) &&
                                 <div onClick={() => setCollectionSelectedIndex(-1)}>

@@ -67,7 +67,7 @@ class Sock {
 }
 
 export const paramDict = {
-    color: ["black", "blue", "red", "green", "yellow"],
+    color: ["black", "blue", "red", "green", "yellow", "darkgrey"],
     lineAmount: [0, 1, 2, 3],
     pattern: ["dots", "heart", "None"],
     patternColor: ["black", "blue", "red", "green", "orange", "magenta"],
