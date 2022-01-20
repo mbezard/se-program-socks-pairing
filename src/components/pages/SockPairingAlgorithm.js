@@ -8,6 +8,7 @@ import SimpleDivideAndSweepAlgo from "../utils/algo/class/algorithms/SimpleDivid
 import DivideAndSweepAlgo from "../utils/algo/class/algorithms/DivideAndSweepAlgo";
 import Tutorial from "../components/Tutorial";
 import {incrementProgressInMemory, isTutorialActivated} from "../utils/tutorial/Progress";
+import AlgoRandom from "../utils/algo/class/algorithms/AlgoRandom";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
@@ -29,6 +30,8 @@ export default function SockPairingAlgorithm() {
         algo = new SimpleDivideAndSweepAlgo()
     } else if (parseInt(algoIndex) === 2) {
         algo = new DivideAndSweepAlgo()
+    } else if (parseInt(algoIndex) === 3) {
+        algo = new AlgoRandom()
     }
 
     useEffect(() => {

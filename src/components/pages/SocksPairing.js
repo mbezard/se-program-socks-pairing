@@ -89,7 +89,13 @@ export default function SocksPairing() {//todo add parameters to robots
                                         <img src={r} alt="robot" className={"h-20 m-auto"}/>
                                         <div className={"flex justify-center my-4"}>
                                             <div
-                                                className={`border-l-8 h-80 ${robotColors[i] === "yellow" ? "border-yellow-400" : (robotColors[i] === "green" ? "border-green-400" : "border-blue-400")}`}/>
+                                                className={`border-l-8 h-80 ${
+                                                    robotColors[i] === "yellow" ? 
+                                                        "border-yellow-400" 
+                                                        : (robotColors[i] === "green" 
+                                                            ? "border-green-400" 
+                                                            : (robotColors[i] === "blue" 
+                                                                ? "border-blue-400" : "border-gray-400"))}`}/>
                                         </div>
                                         <div>
                                             <div className={"button-primary"}
