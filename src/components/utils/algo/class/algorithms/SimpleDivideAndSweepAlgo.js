@@ -65,7 +65,7 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                 while (box.length !== 0) {
                     if(box.length >= 2) {
                         const pair = [box.pop(), box.pop()]
-                        console.log("pair:",pair)
+                        // console.log("pair:",pair)
                         board.finalCollection.push(pair)
                         this.states.push(new ExecState(board))
                         this.actions.push(new ExecAction(ACTION_MOVE_PAIR, pair, [0,index], "final box"))
@@ -73,7 +73,7 @@ export default class SimpleDivideAndSweepAlgo extends Algo {
                     }
                     //if 1 sock
                     const sock = box.pop()
-                    console.log("sock:",sock)
+                    // console.log("sock:",sock)
                     board.finalCollection.push([sock])
                     this.states.push(new ExecState(board))
                     this.actions.push(new ExecAction(ACTION_MOVE_PAIR, [sock], [0,index], "final box"))

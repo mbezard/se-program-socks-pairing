@@ -37,8 +37,8 @@ export default function SockPairingAlgorithm() {
             setStates(tempStates)
             setActions(tempActions)
             forceUpdate()
-            console.log("states: ", tempStates)
-            console.log("actions: ", tempActions)
+            // console.log("states: ", tempStates)
+            // console.log("actions: ", tempActions)
         }
     }, [actions.length, algo, algoIndex, collection, forceUpdate, states.length])
 

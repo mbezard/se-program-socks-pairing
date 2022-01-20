@@ -14,7 +14,7 @@ export default function SocksEditPage() {
         // console.log("edit", param, value)
         setNewSock(prevState => {
             prevState.param[param] = value
-            console.log(prevState, "change:",)
+            // console.log(prevState, "change:",)
             return {...prevState}
         })
     }
