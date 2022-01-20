@@ -55,7 +55,7 @@ export default class SimpleAlgo extends Algo {
             this.states.push(new ExecState(board))
             this.actions.push(new ExecAction(ACTION_MOVE_PAIR, board.finalCollection[board.finalCollection.length - 1], [1, 0], "final box"))
         }
-        
+
         return [this.states, this.actions]
     }
 

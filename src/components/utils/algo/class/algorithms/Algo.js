@@ -3,7 +3,7 @@
  */
 export default class Algo{
     constructor() {
-        if (this.constructor == Algo) {
+        if (this.constructor === Algo) {
             throw new Error("Abstract classes can't be instantiated.");
         }
     }

@@ -7,6 +7,7 @@ import {ForwardIcon, PauseIcon, PlayIcon, RewindIcon} from "../components/Algori
 import SimpleDivideAndSweepAlgo from "../utils/algo/class/algorithms/SimpleDivideAndSweepAlgo";
 import DivideAndSweepAlgo from "../utils/algo/class/algorithms/DivideAndSweepAlgo";
 import Tutorial from "../components/Tutorial";
+import {incrementProgressInMemory, isTutorialActivated} from "../utils/tutorial/Progress";
 
 export default function SockPairingAlgorithm() {
     const params = useParams()
@@ -15,6 +16,7 @@ export default function SockPairingAlgorithm() {
     const [step, setStep] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
     const [playInterval, setPlayInterval] = useState(0)
+    const [showAnalytics, setShowAnalytics] = useState(false)
     const forceUpdate = useForceUpdate();
     let algo = null
 
@@ -41,24 +43,37 @@ export default function SockPairingAlgorithm() {
     }, [actions.length, algo, algoIndex, collection, forceUpdate, states.length])
 
     useEffect(() => {
-        if (isPlaying === true) {
+        if(step >= actions.length && isPlaying) {
+            setIsPlaying(false)
+            clearInterval(playInterval)
+        }
+    }, [step, isPlaying, actions.length, playInterval])
+
+    useEffect(() => {
+        if (isPlaying === true && playInterval == null) {
             // console.log("start")
             setPlayInterval(setInterval(() => setStep(v => v + 1), 500))
         } else if (isPlaying === false) {
             // console.log("stop")
             clearInterval(playInterval)
+            setPlayInterval(null)
         }
     }, [isPlaying, playInterval])
 
-    let endOfLog;
+    let scrollingDiv;
     useEffect(() => {
-        endOfLog.scrollIntoView();
-    }, [endOfLog, step])
+        scrollingDiv.scrollTop = scrollingDiv.scrollHeight;
+    }, [scrollingDiv, step])
 
-    if (states.length > 0 && step >= states.length) {
-        clearInterval(playInterval)
-        setStep(states.length - 1)
-    }
+
+    useEffect(() => {
+        if(actions.length > 0 && step >= actions.length && !showAnalytics) {
+            setShowAnalytics(true)
+            if(isTutorialActivated()) {
+                incrementProgressInMemory()
+            }
+        }
+    }, [actions.length, showAnalytics, step])
 
 
 
@@ -69,7 +84,7 @@ export default function SockPairingAlgorithm() {
                     <div>Step n°{step} {actions[step]?.title && <> - {actions[step]?.title}</>}</div>
                     <div style={{width: "50rem", minHeight: "40rem"}}>
                         {states[step]?.getHtml()}
-                        {step >= actions.length &&
+                        {showAnalytics &&
                         <div className={"my-4 w-full text-center"}>
                             Analytics
                             <br/>
@@ -87,12 +102,12 @@ export default function SockPairingAlgorithm() {
                         <img src={robots[algoIndex]} alt="robot" className={"h-20 m-auto"}/>
                     </div>
                     <div className={"rounded bg-gray-500 m-3 p-3 overflow-x-auto"}
+                         ref={(el) => scrollingDiv = el}
                          style={{width: "20rem", height: "35rem"}}>
                         {actions.filter((v, i) => i < step).map((action, i) => (
                                 <div key={i} className={"text-white my-3"}>{action.getLogText()}</div>
                             )
                         )}
-                        <div ref={(el) => endOfLog = el} />
                     </div>
 
                     <div className={"flex justify-center"} style={{width: "20rem", height: "5rem"}}>
@@ -120,12 +135,12 @@ export default function SockPairingAlgorithm() {
                 </div>
 
             </div>
-            <Tutorial/>
+            <Tutorial />
         </div>
     )
 }
 
 function useForceUpdate() {
-    const [value, setValue] = useState(true);
+    const [, setValue] = useState(true);
     return () => setValue(value => !value);
 }

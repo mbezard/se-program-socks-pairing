@@ -36,7 +36,8 @@ const tutorialTexts = [
     </>,
     {
         question: <>It's time to make prediction. <br/>How many comparisons between 2 socks will there be?</>,
-        answers: ["1-2", "3-4", "5-6"]
+        answers: ["1-2", "3-4", "5-6"],
+        correctAnswerIndex: 1
     },
     <>
         This is the running environment
@@ -61,6 +62,9 @@ const tutorialTexts = [
         Oh! The algorithm is over.
         <br/>
         You can see some Analytics below the final box. Let's see if your prediction was correct.
+    </>,
+    <>
+        Let's check if your prediction was correct:
     </>
 
 ]
