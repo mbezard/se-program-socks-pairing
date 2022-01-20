@@ -83,8 +83,8 @@ export default class ExecState {
                         </div>
                     ))}
                 </div>
-                <div className={"w-full h-24 mt-6"}>
-                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex pt-2"}>
+                <div className={"w-full mt-6"} style={{minHeight:"7rem"}}>
+                    <div className={"border-8 border-yellow-900 bg-yellow-700 h-full mx-5 flex px-2 flex-wrap"} style={{minHeight:"6rem"}}>
                         {this.board.finalCollection.map((pair, i) => (
                             <div key={i} className={"inline-flex"} style={{minWidth: "4rem"}}>
                                 <div>
